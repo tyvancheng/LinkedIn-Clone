@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+// import App from './App';
 import App from './App';
 import { Provider as ReduxProvider} from 'react-redux';
 import { BrowserRouter } from'react-router-dom';
@@ -12,7 +13,10 @@ window.createUser = createUser
 window.loginUser = loginUser
 window.logoutUser = logoutUser
 
+
 const store = configureStore();
+
+window.store = store
 
 function Root() {
   return (

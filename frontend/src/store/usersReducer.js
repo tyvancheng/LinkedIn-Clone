@@ -24,6 +24,7 @@
         let data = await res.json();
         sessionStorage.setItem('currentUser', JSON.stringify(data.user));
         debugger
+        console.log(data.user)
         dispatch(receiveUser(data.user))
     };
 
@@ -48,14 +49,17 @@
     // REDUCER
     const userReducer = ( state = {}, action ) => {
         const nextState = { ...state };
-
+        console.log(action)
         switch(action.type) {
             case RECEIVE_USER:
-                debugger
-                nextState[action.payload.id] = action.payload;
+                if (action.user) {
+                    nextState["currentUserId"] = action.user.id;
+                } else {
+                    nextState["currentUserId"] = null;
+                }
                 return nextState;
             case REMOVE_USER:
-                delete nextState[action.userId];
+                nextState["currentUserId"] = null;
                 return nextState;
             default:
                 return state;

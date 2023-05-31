@@ -2,6 +2,7 @@ import { useState, useEffect} from "react";
 import {useDispatch} from "react-redux";
 import { createUser } from "../../store/session";
 import { Link } from "react-router-dom";
+import "./sign_up_form.css";
 
 const SignUpForm = () => {
     const [email, setEmail] = useState("");
@@ -16,26 +17,24 @@ const SignUpForm = () => {
         e.preventDefault();
         setErrors([]);
         if (password === confirmPassword) {
-          return dispatch(createUser({ email, password, firstName, lastName }))
+           dispatch(createUser({ email, password, first_name: firstName, last_name: lastName }))
             .catch(async (res) => {
             let data;
-            debugger
             try {
               // .clone() essentially allows you to read the response body twice
               data = await res.clone().json();
             } catch {
               data = await res.text(); // Will hit this case if, e.g., server is down
-              debugger;
+              
             }
             if (data?.errors) setErrors(data.errors);
             else if (data) setErrors([data]);
             else setErrors([res.statusText]);
-            debugger;
+            
           });
         }
         // return setErrors(['Confirm Password field must be the same as the Password field']);
-        debugger
-      };
+              };
 
     // useEffect(() => {
     //     if (errors) {

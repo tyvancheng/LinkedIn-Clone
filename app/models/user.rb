@@ -1,5 +1,8 @@
 class User < ApplicationRecord
-    validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: "incorrect"}, length: {in: 3..255}
+    validates :email, 
+        format: { with: URI::MailTo::EMAIL_REGEXP, message: "not a valid email address" }, 
+        length: {in: 3..255, message: "must be between 3 and 255 characters" }, 
+        uniqueness: { message: "has already been taken" }
     validates :password_digest, presence: true
     validates :session_token, uniqueness: true
     validates :first_name, presence: true
@@ -10,13 +13,13 @@ class User < ApplicationRecord
 
     before_validation :ensure_session_token
     
-    debugger
+    
     def ensure_session_token
         self.session_token ||= generate_unique_session_token
     end
 
     def reset_session_token!
-        debugger
+
         self.session_token = generate_unique_session_token
         save!
         session_token
@@ -26,7 +29,6 @@ class User < ApplicationRecord
         user = User.find_by(email: email)
         # has_secure_password gives us the authenticate method
         if user&.authenticate(password) 
-            debugger
             return user
         else
             nil 

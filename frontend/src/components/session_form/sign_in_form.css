@@ -1,0 +1,65 @@
+.sign-in-form {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    /* align-items: center; */
+    padding-top: 30px;
+    height: 400px;
+}
+
+.input-container {
+    padding-bottom: 30px;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: rgb(85, 85, 85);
+    font-size: 15px;
+    padding-top: 30px;
+    padding-bottom: 15px;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+.input {
+    /* padding-bottom: 20px; */
+    display: flex;
+    justify-content: center;
+    width: 350px;
+    height: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 1px solid black;
+    border-radius: 4px;
+    
+}
+
+.input:hover {
+    background-color: rgb(238, 238, 238);
+    border: 2px solid black;
+    border-radius: 4px;
+}
+
+input {
+    padding-top: 4px;
+    width: 350px;
+    border: none;
+    background-color: transparent;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    
+}
+
+input:focus {
+    outline: none;
+  }
+
+button {
+    width: 392px;
+    height: 50px;
+    /* padding: 10px; */
+}

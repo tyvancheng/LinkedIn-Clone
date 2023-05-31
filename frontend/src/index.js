@@ -6,17 +6,18 @@ import App from './App';
 import { Provider as ReduxProvider} from 'react-redux';
 import { BrowserRouter } from'react-router-dom';
 import configureStore from './store';
+import {csrfFetch} from './store/csrf';
 import * as sessionActions from './store/session'; 
-
-
-window.createUser = sessionActions.createUser
-window.loginUser = sessionActions.loginUser
-window.logoutUser = sessionActions.logoutUser
 
 
 const store = configureStore();
 
-window.store = store
+if (process.env.NODE_ENV !== 'production') {
+  window.store = store;
+  window.csrfFetch = csrfFetch;
+  window.sessionActions = sessionActions;
+}
+
 
 function Root() {
   return (
@@ -37,7 +38,7 @@ const initializeApp = () => {
   );
 }
 
-if (sessionStorage.getItem("X-CSRF-Token") === null || sessionStorage.getItem("currentUserId") === null) {
+if (sessionStorage.getItem("X-CSRF-Token") === null || sessionStorage.getItem("currentUser") === null) {
     store.dispatch(sessionActions.restoreSession()).then(initializeApp)
 } else {
     initializeApp();

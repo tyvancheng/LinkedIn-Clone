@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AuthForm  from './AuthForm';
-import { loginUser, createUser } from '../store/usersReducer';
+import { loginUser, createUser } from '../store/session';
 
 /*
 Export as the default a `PostIndex` component that renders a list (`ul`) of

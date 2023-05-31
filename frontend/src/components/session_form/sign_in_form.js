@@ -1,6 +1,6 @@
 import { useState} from "react";
 import {useDispatch} from "react-redux";
-import { loginUser } from "../../store/usersReducer";
+import { loginUser } from "../../store/session";
 import { Link } from "react-router-dom";
 
 const SignInForm = () => {

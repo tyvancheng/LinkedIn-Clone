@@ -23,27 +23,45 @@ const SignInForm = (page = null) => {
     
     return (
         <div>
+            {page === 'welcome' ? null : <h1>Sign In</h1>}
             <form className="sign-in-form" onSubmit={handleSubmit}>
                 {page === 'welcome' ? null : <h1>Sign In</h1>}
                 <p>{errors ? errors : null}</p>
                 
-                <div className="input-container">
-                {/* <div> */}
+                <div className="auth-input-container">
+                
                     <label htmlFor="email">Email</label>
-                    <div className="input">
+                    <div className="auth-input-box">
                         <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
                     </div>
-                {/* </div> */}
 
-                {/* <div> */}
                     <label htmlFor="password">Password</label>
-                    <div className="input">
+                    <div className="auth-input-box">
                         <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
                     </div>
-                {/* </div> */}
+
                 </div>
-                <button type="submit">Sign In</button>
-                <p>New to LockedIn?<Link to="/signup">Join now</Link></p>
+                
+                <button className="main-auth-button" type="submit">Sign In</button>
+                
+                <div className="or_line_break">
+                    {/* <hr/> */}
+                    <h6>or</h6>
+                </div>
+
+                {/* <div className="change-link">
+                    <p>New to LockedIn?<Link to="/signup">Join now</Link></p>
+                </div> */}
+
+                {/* <div className="lower-auth-buttons"> */}
+                    <button className="change-link" onClick={() => { window.location.href = "/login" }}>
+                        Sign in as Demo User
+                    </button>
+
+                    <button className="change-link" onClick={() => { window.location.href = "/signup" }}>
+                        New to LockedIn? Join now
+                    </button>
+                {/* </div> */}
 
             </form>
         </div>

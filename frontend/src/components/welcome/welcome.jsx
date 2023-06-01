@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 // import SignInForm from '../session_form/sign_in_form';
 import githublogo from '../../images/githublogo.jpeg'
 import linkedinlogo from '../../images/linkedinlogo.jpeg'
-import firstbody from '../../images/firstbody.png'
+import firstbodyimage from '../../images/firstbody.png'
 import SignInForm from '../session_form/sign_in_form';
 import './welcome.css'
 
@@ -40,12 +40,10 @@ export default function Welcome() {
                     <div className='left'>
                         <h1 id="welcome-message">Welcome to your professional community</h1>
                         {SignInForm('welcome')}
-                        <Link to="/login">Login</Link>
-                        <Link to="/signup">Sign Up</Link>
                     </div>
 
                     <div className='right'>
-                        <img src={firstbody} alt="welcomephoto" />
+                        <img src={firstbodyimage} alt="welcomephoto" />
                     </div>
     
                 </div>

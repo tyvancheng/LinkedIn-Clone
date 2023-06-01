@@ -91,20 +91,27 @@ header {
 
 .first-body {
     display: flex;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 .first-body .left{
-    max-width: 50%;
+    max-width: 42%;
+    padding-left: 1px;
+    /* border: 1px solid blue; */
+
 }
 
 .first-body .right{
     max-width: 50%;
+    /* border: 1px solid red; */
 }
 
 .first-body .right img {
     padding-top: 40px;
-    max-height: 600px;
-    max-width: 600px;
+    max-height: 800px;
+    max-width: 700px;
+    padding-left: 50px;
 }
 
 

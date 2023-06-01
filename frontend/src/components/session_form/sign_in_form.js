@@ -21,23 +21,26 @@ const SignInForm = (page = null) => {
         }
     };
     
-    return (
-        <div>
-            {page === 'welcome' ? null : <h1>Sign In</h1>}
-            <form className="sign-in-form" onSubmit={handleSubmit}>
-                {page === 'welcome' ? null : <h1>Sign In</h1>}
+    const signingInForm = (
+        <form className="sign-in-form" onSubmit={handleSubmit}>
                 <p>{errors ? errors : null}</p>
                 
                 <div className="auth-input-container">
                 
                     <label htmlFor="email">Email</label>
                     <div className="auth-input-box">
-                        <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
+                        <input type="text" value={email} 
+                        onChange={e => setEmail(e.target.value)} 
+                        placeholder={page === 'welcome' ? null : 'Email'}
+                         />
                     </div>
 
                     <label htmlFor="password">Password</label>
                     <div className="auth-input-box">
-                        <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                        <input type="password" value={password} 
+                        onChange={e => setPassword(e.target.value)}
+                        placeholder={page === 'welcome' ? null : 'Password'}
+                        />
                     </div>
 
                 </div>
@@ -64,6 +67,25 @@ const SignInForm = (page = null) => {
                 {/* </div> */}
 
             </form>
+    )
+
+    return (
+        <div>
+            { page === 'welcome' ? signingInForm 
+            : 
+            <div>
+                <div className="auth-form-page-header">
+                <a href="/" className="welcome-logo">LockedIn</a>
+                </div>
+                <div className="auth-form-page-form-holder">
+                    <div className="auth-form-page-form">
+                        <h1>Sign In</h1>
+                        <h5>Stay updated on your professional world</h5>
+                        <p>{signingInForm}</p>
+                    </div>
+                </div>
+            </div>
+            }
         </div>
     )
 }

@@ -68,7 +68,7 @@ const SignUpForm = () => {
                 </label>
 
                 <button type="submit">Sign Up</button>
-                <p>Already on LockedIn?<Link to="/signup">Sign In</Link></p>
+                <p>Already on LockedIn?<Link to="/login">Sign In</Link></p>
 
             </form>
         </div>

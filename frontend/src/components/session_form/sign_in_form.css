@@ -1,4 +1,4 @@
-.sign-in-form {
+.auth-form {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -58,7 +58,7 @@
     outline: none;
   }
 
-.sign-in-form button {
+.auth-form button {
     width: 392px;
     height: 50px;
     background-color: #0a66c2;
@@ -71,7 +71,7 @@
     border-radius: 24px;
 }
 
-.sign-in-form button:hover {
+.auth-form button:hover {
     background-color: #004182;
     cursor: pointer;
 }
@@ -109,14 +109,14 @@
     position: absolute;
 }
 
-.sign-in-form .change-link {
+.auth-form .change-link {
     padding-top: 12px;
     background-color: white;
     color: rgb(85, 85, 85);
     border-color: rgb(85, 85, 85);
 }
 
-.sign-in-form .change-link:hover {
+.auth-form .change-link:hover {
     background-color: rgb(238, 238, 238);
     color: black;
 }

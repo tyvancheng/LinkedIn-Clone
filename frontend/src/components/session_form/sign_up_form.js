@@ -1,76 +1,93 @@
-import { useState, useEffect} from "react";
+import { useState } from "react";
 import {useDispatch} from "react-redux";
 import { createUser } from "../../store/session";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { loginUser } from "../../store/session";
+import { NameInput } from "./name_input";
 import "./sign_up_form.css";
 
 const SignUpForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [errors, setErrors] = useState([]);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setErrors([]);
-        if (password === confirmPassword) {
-           dispatch(createUser({ email, password, first_name: firstName, last_name: lastName }))
-            .catch(async (res) => {
-            let data;
-            try {
-              // .clone() essentially allows you to read the response body twice
-              data = await res.clone().json();
-            } catch {
-              data = await res.text(); // Will hit this case if, e.g., server is down
-              
-            }
-            if (data?.errors) setErrors(data.errors);
-            else if (data) setErrors([data]);
-            else setErrors([res.statusText]);
-            
-          });
-        }
-        // return setErrors(['Confirm Password field must be the same as the Password field']);
-              };
 
-    // useEffect(() => {
-    //     if (errors) {
-    //         setErrors("");
-    //     }
-    // }, [errors]);
+        let valid = true
+        if (!/\S+@\S+\.\S+/.test(email)) {
+            valid = false;
+            if (!errors.includes("Invalid email")) {
+                setErrors(["Invalid email"]);
+          };
+        }
+
+        if (password.length < 6 ) {
+            valid = false;
+            setErrors([ ...errors, "Password field must be at least 6 characters long" ]);
+        }
+
+        if (valid === true) NameInput()
+    }
+       
     
     return (
-        <div className="sign-up-form">
-            <form onSubmit={handleSubmit}>
-                <h1>Sign Up</h1>
+        <div>
+            
+            <div className="auth-form-page-header">
+                    <a href="/" className="welcome-logo">LockedIn</a>
+            </div>
+
+            <h1>Make the most of your professional life</h1>
+
+            <div className="auth-form-page-form">
+            <form className="auth-form" onSubmit={handleSubmit}>
                 {errors && <p>{errors}</p>}
-                <label htmlFor="email">Email
-                    <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
-                </label>
+                <div className="auth-input-container">
+                    <label htmlFor="email">Email</label>
+                        <div className="auth-input-box">
+                            <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
+                        </div>
 
-                <label htmlFor="password">Password
-                    <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-                </label>
+                    <label htmlFor="password">Password</label>
+                        <div className="auth-input-box">
+                            <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                        </div>
 
-                <label htmlFor="confirm-password">Confirm Password
-                    <input type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
-                </label>
 
-                <label htmlFor="first-name">First name
-                    <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)} />
-                </label>
+                    {/* <label htmlFor="first-name">First name</label>
+                        <div className="auth-input-box">
+                            <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)} />
+                        </div>
 
-                <label htmlFor="last-name">Last name
-                    <input type="text" value={lastName} onChange={e => setLastName(e.target.value)} />
-                </label>
+                    <label htmlFor="last-name">Last name</label>
+                        <div className="auth-input-box">
+                            <input type="text" value={lastName} onChange={e => setLastName(e.target.value)} />
+                        </div> */}
+                </div>
+        
+                <button type="submit">Agree & join</button>
+                <div className="or_line_break">
+                    {/* <hr/> */}
+                    <h6>or</h6>
+                </div>
 
-                <button type="submit">Sign Up</button>
-                <p>Already on LockedIn?<Link to="/login">Sign In</Link></p>
+                <button className="change-link" onClick={() => {
+                        dispatch(loginUser({ email: "lockedindemo@gmail.com", password: "demouser" }))
+                        }}>
+                        Sign in as Demo User
+                    </button>
+    
+                <button className="change-link" onClick={() => history.push('/login')}>
+                    Already on LockedIn? Sign in
+                </button>
 
             </form>
+            </div>
         </div>
     )
 }

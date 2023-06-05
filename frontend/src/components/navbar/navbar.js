@@ -11,6 +11,8 @@ const NavBar = () => {
   const user = useSelector((state) => state.session.user);
   const [showModal, setShowModal] = useState(false);
 
+    if (!user) return null;
+
   const toggleModal = () => {
     setShowModal(!showModal);
   };
@@ -48,7 +50,7 @@ const NavBar = () => {
           >
             <div className="modal-content">
               <ul className="dropdown-menu">
-                <li>{user.first_name} {user.last_name}</li>
+                <li>{user.firstName} {user.lastName}</li>
                 <li>Sign Out</li>
               </ul>
               <button className="modal-close" onClick={toggleModal}>

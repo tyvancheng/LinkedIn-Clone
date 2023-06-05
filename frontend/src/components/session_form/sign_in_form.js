@@ -20,13 +20,23 @@ const SignInForm = (page = null) => {
         try {
             console.log(email, password);
             dispatch( await loginUser({ email, password }));
-            history.push(`/feed/${user.id}`);
+            history.push(`/feed`);
         } catch (err) {
             setErrors(err.errors);
         }
     };
     
+    const loginDemoUser = async (e) => {
 
+        e.preventDefault();
+        try {
+            console.log(email, password);
+            dispatch( await loginUser({ email: "lockedindemo@gmail.com", password: "demouser" }));
+            history.push(`/feed`);
+        } catch (err) {
+            setErrors(err.errors);
+        }
+    };
     const handleBlur = () => {
     
         if (!/\S+@\S+\.\S+/.test(email)) {
@@ -39,7 +49,7 @@ const SignInForm = (page = null) => {
     }
       
       useEffect(() => {
-        if (errors.includes("Invalid email")) {
+        if (errors?.includes("Invalid email")) {
           const emailInputBox = document.getElementById("sign-in-email-box");
           const emailInput = document.getElementById("sign-in-email-input");
       
@@ -105,11 +115,7 @@ const SignInForm = (page = null) => {
                 </div> */}
 
                 {/* <div className="lower-auth-buttons"> */}
-                    <button className="change-link" onClick={() => {
-                        setEmail("lockedindemo@gmail.com")
-                        setPassword("demouser")
-                        handleSubmit()
-                        }}>
+                    <button className="change-link" onClick={loginDemoUser}>
                         Sign in as Demo User
                     </button>
 
@@ -140,6 +146,6 @@ const SignInForm = (page = null) => {
             }
         </div>
     )
-}
+        }
 
 export default SignInForm

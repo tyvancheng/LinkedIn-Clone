@@ -9,9 +9,8 @@
         payload: user
     });
 
-    export const removeUser = userId => ({
-        type: REMOVE_USER,
-        userId // userId: userId
+    export const removeUser = () => ({
+        type: REMOVE_USER
     });
 
  
@@ -34,13 +33,13 @@
         }
     };
 
-    export const logoutUser = userId => async dispatch => {
+    export const logoutUser = () => async dispatch => {
         let res = await csrfFetch('/api/session', {
             method: 'DELETE'
         });
         if (res.ok) {
             sessionStorage.setItem('currentUser', null)
-            dispatch(removeUser(userId));
+            dispatch(removeUser());
         }
     }
 

@@ -47,7 +47,7 @@ class User < ApplicationRecord
 
         self.session_token = generate_unique_session_token
         save!
-        session_token
+        self.session_token
     end
 
     def self.find_by_credentials(email, password)

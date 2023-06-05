@@ -9,7 +9,8 @@ export default function PostIndexItem({ post, postId }) {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.session.user);
 
-
+    debugger;
+    
     const handleDelete = () => {
         dispatch(deletePost(post.id));
     };

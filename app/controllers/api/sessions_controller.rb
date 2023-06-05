@@ -1,6 +1,6 @@
 class Api::SessionsController < ApplicationController
-    before_action :require_logged_in, only: [:create]
-    before_action :require_logged_in, only: [:destroy]
+    before_action :require_logged_out, only: [:create]
+    # before_action :require_logged_in, only: [:destroy]
 
     def show
         @user = current_user
@@ -26,7 +26,8 @@ class Api::SessionsController < ApplicationController
     end
 
     def destroy
-        logout
+        logout if current_user
+
         head :no_content # populate http response with no content => no body
     end
 end

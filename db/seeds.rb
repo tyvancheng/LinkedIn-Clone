@@ -47,8 +47,8 @@ user1 = User.create!(first_name: "tyvan", last_name: "cheng", email: "user1@exam
 user2 = User.create!(first_name: "mike", last_name: "lee", email: "user2@example.com", password: "password2")
 demouser = User.create!(first_name: "demo", last_name: "user", email: "lockedindemo@gmail.com", password: "demouser")
 
-post1 = Post.create!(author: user1, body: bodies[1])
-post2 = Post.create!(author: user2, body: bodies[2])
-post3 = Post.create!(author: demouser, body: bodies[3])
-post4 = Post.create!(author: user1, body: bodies[4])
-post5 = Post.create!(author: user2, body: bodies[0])
+post1 = Post.create!(author_id: user1.id, body: bodies[1])
+post2 = Post.create!(author_id: user2.id, body: bodies[1])
+post3 = Post.create!(author_id: demouser.id, body: bodies[1])
+post4 = Post.create!(author_id: user1.id, body: bodies[1])
+post5 = Post.create!(author_id: user2.id, body: bodies[1])

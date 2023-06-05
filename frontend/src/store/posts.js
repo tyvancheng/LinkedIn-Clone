@@ -35,6 +35,7 @@ export const fetchPost = postId => async dispatch => {
 }
 
 export const createPost = post => async dispatch => {
+  debugger
   const res = await csrfFetch(`/api/posts`, {
     method: 'POST',
     headers: {
@@ -77,6 +78,7 @@ export default function postsReducer(prev = {}, action) {
     case RECEIVE_POSTS:
       return { ...action.posts}
     case RECEIVE_POST:
+      debugger
       state[action.post.id] = action.post
       return state
     case REMOVE_POST:

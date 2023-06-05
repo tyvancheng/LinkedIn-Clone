@@ -1,9 +1,16 @@
-.start-a-post {
+.post-index-and-create-post {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    /* border: 15px solid green; */
     width: 50%;
-    border: 1px solid black;
+}
+.start-a-post {
+    /* width: 50%; */
+    border: 1px solid rgb(209, 209, 209);
     display: flex;
     background-color: white;
-    border-radius: 4px;
+    border-radius: 8px;
     align-items: center;
 }
 
@@ -28,3 +35,31 @@
     align-items: center;
     padding-left: 25px;
 }
+
+
+.post-index-and-create-post hr {
+    width: 90%;
+    color: 1px solid rgb(209, 209, 209);
+
+}
+
+
+
+
+
+
+
+/* .modal-submit {
+
+    width: 100%;
+  } */
+  
+  .active {
+    background-color: blue;
+    /* additional styles */
+  }
+  
+  .inactive {
+    background-color: grey;
+    /* additional styles */
+  }

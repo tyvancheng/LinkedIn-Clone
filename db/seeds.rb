@@ -43,9 +43,9 @@ bodies = [
 
 
 
-user1 = User.create!(first_name: "tyvan", last_name: "cheng", email: "user1@example.com", password: "password1")
-user2 = User.create!(first_name: "mike", last_name: "lee", email: "user2@example.com", password: "password2")
-demouser = User.create!(first_name: "demo", last_name: "user", email: "lockedindemo@gmail.com", password: "demouser")
+user1 = User.create!(first_name: "Tyvan", last_name: "Cheng", email: "user1@example.com", password: "password1")
+user2 = User.create!(first_name: "Mike", last_name: "Lee", email: "user2@example.com", password: "password2")
+demouser = User.create!(first_name: "Demo", last_name: "User", email: "lockedindemo@gmail.com", password: "demouser")
 
 post1 = Post.create!(author_id: user1.id, body: bodies[1])
 post2 = Post.create!(author_id: user2.id, body: bodies[1])

@@ -1,5 +1,35 @@
-.feed {
+.feed-page {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(240, 239, 239);
+    height: 100vh;
+}
+
+.feed-page-nav {
+    background-color: white;
+}
+
+.feed-page-nav-content {
     margin-left: 175px;
     margin-right: 175px;
-    background-color: bisque;
+}
+
+.feed-page-main {
+    margin-left: 175px;
+    margin-right: 175px;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    /* align-items: center; */
+    border: 1px solid red;
+    background-color: rgb(240, 239, 239);
+    height: 100%;
+    margin-top: 25px;
+}
+
+.feed-page-main-index {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    /* margin-top: -300px; */
 }

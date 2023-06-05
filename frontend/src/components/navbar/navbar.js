@@ -1,7 +1,9 @@
 import linkedinicon from '../../images/linkedinicon.png';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
+import { useHistory } from'react-router-dom';
 import Modal from 'react-modal';
+import { logoutUser } from '../../store/session';
 import './navbar.css';
 
 // Make sure to set the app root element for the Modal
@@ -10,12 +12,19 @@ Modal.setAppElement('#root');
 const NavBar = () => {
   const user = useSelector((state) => state.session.user);
   const [showModal, setShowModal] = useState(false);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
     if (!user) return null;
 
   const toggleModal = () => {
     setShowModal(!showModal);
   };
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    history.push("/");
+}
 
   return (
     <>
@@ -51,7 +60,8 @@ const NavBar = () => {
             <div className="modal-content">
               <ul className="dropdown-menu">
                 <li>{user.firstName} {user.lastName}</li>
-                <li>Sign Out</li>
+        
+            <button onClick={() => handleLogout}>Sign Out</button>
               </ul>
               <button className="modal-close" onClick={toggleModal}>
                 Close

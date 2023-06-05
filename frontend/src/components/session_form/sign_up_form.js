@@ -34,6 +34,41 @@ const SignUpForm = () => {
         if (valid === true) setForm(2)
     }
 
+    function capitalizeFirstLetter(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      }
+    
+    const capitalizedName = () => {
+         setFirstName(capitalizeFirstLetter(firstName))
+         setLastName(capitalizeFirstLetter(lastName))
+        
+    };
+
+    const handleSubmitName = (e) => {
+        e.preventDefault();
+        setErrors([]);
+            
+        capitalizedName()
+
+           dispatch(createUser({ email, password, first_name: firstName, last_name: lastName }))
+            
+            .catch(async (res) => {
+            let data;
+            try {
+              // .clone() essentially allows you to read the response body twice
+              data = await res.clone().json();
+            } catch {
+              data = await res.text(); // Will hit this case if, e.g., server is down
+              
+            }
+            if (data?.errors) setErrors(data.errors);
+            else if (data) setErrors([data]);
+            else setErrors([res.statusText]);
+            
+          });
+          history.push('/feed')
+        }
+
     useEffect(() => {
         formSwitch(form)
     }, [form])
@@ -98,12 +133,12 @@ const SignUpForm = () => {
                         <div className="sign-up-name-body">
                             <h2>Make the most of your professional life</h2>
 
-                            <div className="sign-up-name-box">
+                            <form className="sign-up-name-box" onSubmit={handleSubmitName}>
                                 <div>
                                     <label>First name</label>
                                     
                                     <div className="sign-up-input-box">
-                                        <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
+                                        <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)} />
                                     </div>
                                 </div>
                                 <div>
@@ -114,12 +149,14 @@ const SignUpForm = () => {
                                     </div>
                                 </div>
 
-                                <button type="submit">Agree & join</button>
+                                <button type="submit">Continue</button>
 
-                            </div>
+                            </form>
                         </div>
                     </div>
                     )
+                default:
+                    return <div>loading</div>
         }
     }
     return formSwitch(form)

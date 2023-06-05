@@ -9,21 +9,25 @@ import "./feed.css"
 
 
 const Feed = () => {
-    const history = useHistory()
     const dispatch = useDispatch()
     const user = useSelector((state) => state.session.user);
     //     if (user.id !== 
 
 
-    const handleLogout = () => {
-        dispatch(logoutUser(user.id));
-        history.push("/");
-    }
+
     return (
-        <div className="feed">
-            {NavBar()}
-            <button onClick={handleLogout}>logout</button>
-            {PostIndex()}
+        <div className="feed-page">
+            <div className="feed-page-nav">
+                <div className="feed-page-nav-content">
+                    {NavBar()}
+                </div>
+            </div> 
+            <div className="feed-page-main">
+                    <div className="feed-page-main-index">
+                        {PostIndex()
+                    }</div>
+            </div>
+            
         </div>
     )
 }

@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::API
     include ActionController::RequestForgeryProtection
 
+    helper_method :current_user, :logged_in?
+
     protect_from_forgery with: :exception
 
     before_action :snake_case_params

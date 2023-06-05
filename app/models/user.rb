@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                  :bigint           not null, primary key
+#  bio                 :string
+#  email               :string           not null
+#  first_name          :string           not null
+#  last_name           :string           not null
+#  password_digest     :string           not null
+#  profile_picture_url :string
+#  session_token       :string           not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#
+# Indexes
+#
+#  index_users_on_email          (email) UNIQUE
+#  index_users_on_first_name     (first_name)
+#  index_users_on_last_name      (last_name)
+#  index_users_on_session_token  (session_token) UNIQUE
+#
 class User < ApplicationRecord
     validates :email, 
         format: { with: URI::MailTo::EMAIL_REGEXP, message: "not a valid email address" }, 
@@ -12,6 +34,9 @@ class User < ApplicationRecord
     has_secure_password
 
     before_validation :ensure_session_token
+
+    has_many :posts, foreign_key: :author_id, class_name: :Post, dependent: :destroy
+
     
     
     def ensure_session_token

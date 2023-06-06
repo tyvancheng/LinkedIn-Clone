@@ -32,7 +32,7 @@ const PostForm = () => {
             try {
                 data = await res.clone().json();
             } catch {
-              debugger
+          
                 data = await res.text();
             }
             

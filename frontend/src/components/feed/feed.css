@@ -3,10 +3,14 @@
     flex-direction: column;
     background-color: rgb(240, 239, 239);
     height: 100vh;
+    overflow: hidden;
 }
 
 .feed-page-nav {
     background-color: white;
+    flex-shrink: 0;
+    position: sticky;
+    z-index: 1;
 }
 
 .feed-page-nav-content {
@@ -24,8 +28,15 @@
     border: 1px solid red;
     background-color: rgb(240, 239, 239);
     height: 100%;
-    margin-top: 25px;
+    padding-top: 25px;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer and Microsoft Edge */
 }
+
+.feed-page-main::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+  }
 
 .feed-page-main-index {
     display: flex;

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 // import SignInForm from '../session_form/sign_in_form';
-import githublogo from '../../images/githublogo.jpeg'
-import linkedinlogo from '../../images/linkedinlogo.jpeg'
-import firstbodyimage from '../../images/firstbody.png'
+import githublogo from '../../images/welcome/githublogo.jpeg'
+import linkedinlogo from '../../images/welcome/linkedinlogo.jpeg'
+import firstbodyimage from '../../images/welcome/firstbody.png'
 import SignInForm from '../session_form/sign_in_form';
 import './welcome.css'
 

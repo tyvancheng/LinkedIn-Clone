@@ -76,7 +76,7 @@ export default function postsReducer(prev = {}, action) {
 
   switch (action.type) {
     case RECEIVE_POSTS:
-      return { ...action.posts}
+      return { ...state, ...action.posts}
     case RECEIVE_POST:
       debugger
       state[action.post.id] = action.post

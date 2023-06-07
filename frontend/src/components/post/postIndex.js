@@ -19,20 +19,19 @@ export default function PostIndex() {
   }, [dispatch]);
 
   if (!user) return null;
-
-  let reversedPosts = reversed ? posts : [...posts].reverse()
-
+  // let reversedPosts = reversed ? posts : [...posts].reverse()
   return (
     <div className='post-index-and-create-post'>
       
       <PostForm />
 
       <ul>
-        {reversedPosts.map(post => {
-         return <PostIndexItem key={post.id} post={post} postId={post.id}/>
+        {/* {reversedPosts.map(post => { */}
+        {posts.map(post => {
+         return <PostIndexItem key={post.id} post={post}/>
         })}
       </ul>
-      
+
     </div>
   );
 }

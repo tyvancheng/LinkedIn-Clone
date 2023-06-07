@@ -19,29 +19,38 @@ const PostForm = () => {
       const val = event.target.value
 
       if (val.length <= 3000) setInputValue(event.target.value);
-        
       }
     
 
-    const handleCreatePost = () => {
-        
-        dispatch(createPost({ author: user, body: inputValue }))
-            .catch(async (res) => {
-                
-            let data;
-            try {
-                data = await res.clone().json();
-            } catch {
-          
-                data = await res.text();
-            }
-            
-            if (data?.errors) setErrors(data.errors);
-            else if (data) setErrors([data]);
-            else setErrors([res.statusText]);
-            });
+    const handleCreatePost = async () => {
 
-        setShowModal(false);
+        try {
+          // await dispatch(createPost({ author: user, body: inputValue }));
+          await dispatch(createPost({ author_id: user.id, body: inputValue }));
+          setShowModal(false);
+        } catch (error) {
+          let errorMessages = [];
+      
+          if (error.response) {
+            const clonedResponse = error.response.clone();
+      
+            try {
+              const data = await clonedResponse.json();
+              if (data?.errors) {
+                errorMessages = data.errors;
+              } else {
+                errorMessages = [data?.message || error.response.statusText];
+              }
+            } catch {
+              errorMessages = [error.response.statusText];
+            }
+          } else {
+            errorMessages = [error.message || 'An error occurred.'];
+          }
+      
+          setErrors(errorMessages);
+        }
+        setInputValue('');
         };
     
     const toggleModal = () => {
@@ -66,15 +75,20 @@ return (
         overlayClassName="create-post-modal-overlay"
       >
         <div className="create-post-modal-content">
-          
-          <div className="create-post-modal-header">
-            <div className="create-post-modal-header-content">
+          <div className='create-post-modal-header-and-close'>
+            <div className="create-post-modal-header">
+              <div className="create-post-modal-header-content">
 
-              <img className="create-post-modal-header-icon" src={profilepic}></img>
-              <div>{user.firstName} {user.lastName}</div>
-              
+                <img className="create-post-modal-header-icon" src={profilepic}></img>
+                <div>{user.firstName} {user.lastName}</div>
+                
+              </div>
+            </div>
+            <div className='create-post-modal-close' onClick={toggleModal}>
+              <h6>&#x2715;</h6>
             </div>
           </div>
+
           
           {errors ? <div>{errors}</div> : null}
           <div className='create-post-modal-input-container'>
@@ -82,6 +96,7 @@ return (
                 className="modal-input" 
                 type="text" 
                 value={inputValue}
+                autoFocus={true}
                 placeholder="What's on your mind?"
                 onChange={handleInputChange}
               />
@@ -94,7 +109,6 @@ return (
           >
             Submit
           </button>
-          <button className="modal-close" onClick={toggleModal}>Close</button>
         </div>
       </Modal>
     </>

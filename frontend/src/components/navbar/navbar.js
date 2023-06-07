@@ -76,9 +76,9 @@ const NavBar = () => {
 
               Linkedin
             </li>
-            <li className='nav-bar-right-list-element'>
+            <li className='nav-bar-right-list-element' onClick={toggleModal}>
               <img className="connect-logo" src={maleIcon} alt="male-logo"></img>
-              <span onClick={toggleModal}>Me</span>
+              <span>Me&#x25BC;</span>
             </li>
           </ul>
           

@@ -17,7 +17,11 @@ export const removePost = postId => { return { type: REMOVE_POST, postId } }
 //Selectors
 export const getPost = postId => (state) => state.posts ? state.posts[postId] : null
 
-export const getPosts = state => state.posts ? Object.values(state.posts) : []
+export const getPosts = state => {
+  return state.posts ? Object.values(state.posts).sort((a,b) => {
+   return a.createdAt < b.createdAt ? 1 : -1
+  }) : []
+}
 
 
 
@@ -34,17 +38,22 @@ export const fetchPost = postId => async dispatch => {
   dispatch(receivePost(postObj))
 }
 
+
 export const createPost = post => async dispatch => {
+
+  const {body, author_id} = post 
   const res = await csrfFetch(`/api/posts`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(post)
-  })
-  const postObj = await res.json()
-  dispatch(receivePost(postObj))
-}
+    body: JSON.stringify({body, author_id})
+  });
+   
+  const postObj = await res.json();
+
+  dispatch(receivePost(postObj.post));
+};
 
 export const updatePost = post => async dispatch => {
   const res = await csrfFetch(`/api/posts/${post.id}`, {
@@ -59,10 +68,13 @@ export const updatePost = post => async dispatch => {
 }
 
 export const deletePost = postId => async dispatch => {
+  
   const res = await csrfFetch(`/api/posts/${postId}`, {
     method: 'DELETE'
   })
+  
   dispatch(removePost(postId))
+  // return res
 }
 /*
 Export a `postsReducer` function as the default export. It should take in the
@@ -73,9 +85,11 @@ defined in the test specs.
 export default function postsReducer(prev = {}, action) {
   const state = {...prev}
 
+  // console.log("action:", action)
+  // console.log("state:", state)
   switch (action.type) {
     case RECEIVE_POSTS:
-      return { ...state, ...action.posts}
+      return { ...action.posts}
     case RECEIVE_POST:
       state[action.post.id] = action.post
       return state
@@ -84,6 +98,6 @@ export default function postsReducer(prev = {}, action) {
       return state
     default:
       return prev
-  }
+    }
 }
 

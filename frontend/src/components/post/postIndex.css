@@ -91,17 +91,29 @@
   .create-post-modal {
     overflow: hidden;
   }
+
+  .create-post-modal-header-and-close {
+    /* border: 1px solid black; */
+    display: flex;
+    justify-content: space-between;
+  }
   .create-post-modal-header {
     display: inline-block;
     justify-content: space-around;
     flex-direction: row;
     align-items: center;
     border-radius: 8px;
+    /* border: 1px solid black; */
     /* width: 30%; */
-    padding: 20px;
+    padding: 10px;
     font-size: 20px;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: 700;
+  }
+
+  .create-post-modal-header:hover{
+    cursor: pointer;
+    background-color: rgb(238, 238, 238);
   }
 
   .create-post-modal-header-content {
@@ -118,10 +130,31 @@
   }
 
   .create-post-modal-input-container {
-
+    margin-top: 20px;
     /* border: 1px solid black; */
     width: 100%;
-    height: 400px;
+    height: 380px;
+  }
+
+  .create-post-modal-close {
+    display: flex;
+    /* border: 1px solid black; */
+    align-items: center;
+    justify-content: center;
+    width: 6%;
+    height: 40px;
+    border-radius: 100%;
+  }
+
+  .create-post-modal-close:hover {
+    cursor: pointer;
+    background-color: rgb(238, 238, 238);
+  }
+  .create-post-modal-content h6 {
+    position: sticky;
+    font-size: 30px;
+    color:rgb(123, 123, 123);
+    font-family: 'Courier New', Courier, monospace;
   }
 
   .create-post-modal-input-container textarea {

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector} from 'react-redux';
 import { deletePost } from '../../store/posts';
+import Modal from 'react-modal';
 import './postIndexItem.css'
 import profileIcon from '../../images/icons8-male-user-50.png'
 
@@ -31,15 +32,20 @@ export default function PostIndexItem({ post }) {
 
         {/* Maybe add profile picture image here */}
         <div className='header-in-post'>
+            <div className='header-in-post-left'>
+                <img src={profileIcon} alt='profileicon'/>
 
-            <img src={profileIcon} alt='profileicon'/>
+                <div className='header-in-post-credentials'>
+                {post.author && (
+                    <div>{`${post.author.firstName} ${post.author.lastName}`}</div> )}
+                    {/* <div>{post.author.firstName} {post.author.lastName}</div> )} */}
+                    <h6>Software Engineer @ LockedIn | App Academy</h6>
+                    <h6>{post.createdAt}</h6>
+                </div>
+            </div>
 
-            <div className='header-in-post-credentials'>
-            {post.author && (
-                <div>{`${post.author.firstName} ${post.author.lastName}`}</div> )}
-                {/* <div>{post.author.firstName} {post.author.lastName}</div> )} */}
-                <h6>Software Engineer @ LockedIn | App Academy</h6>
-                <h6>{post.createdAt}</h6>
+            <div className='header-in-post-right'>
+                <h5>&hellip;</h5>
             </div>
 
         </div>

@@ -19,11 +19,27 @@
 
 .header-in-post {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 10px;
+    /* border: 1px solid rgb(209, 209, 209); */
 }
 
+.header-in-post-left {
+    display: flex;
+}
+
+.header-in-post-right {
+   /* border: 1px solid black; */
+   display: flex;
+   align-items: flex-end;
+   position: relative;
+   bottom: 11px;
+   right: 4px;
+}
 .header-in-post-credentials {
+    /* border: 1px solid black; */
+
     display: flex;
     flex-direction: column;
     justify-content:space-around;
@@ -43,6 +59,14 @@
     padding-bottom: 2px;
     margin-bottom: 2px;
     color:rgb(120, 120, 120);
+}
+
+.header-in-post h5 {
+    /* border: 1px solid black; */
+    font-size: 35px;
+    position: relative;
+    bottom: 20px;
+    color:rgb(120, 120, 120)
 }
 
 .post-body {

@@ -56,15 +56,18 @@ export const createPost = post => async dispatch => {
 };
 
 export const updatePost = post => async dispatch => {
-  const res = await csrfFetch(`/api/posts/${post.id}`, {
+
+  const {body, author_id, id} = post 
+  
+  const res = await csrfFetch(`/api/posts/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(post)
+    body: JSON.stringify({body, author_id})
   })
   const postObj = await res.json()
-  dispatch(receivePost(postObj))
+  dispatch(receivePosts(postObj))
 }
 
 export const deletePost = postId => async dispatch => {
@@ -84,14 +87,17 @@ defined in the test specs.
 
 export default function postsReducer(prev = {}, action) {
   const state = {...prev}
-
+  console.log("action:", action)
+  console.log("prev:", prev)
   // console.log("action:", action)
   // console.log("state:", state)
   switch (action.type) {
     case RECEIVE_POSTS:
       return { ...action.posts}
     case RECEIVE_POST:
+      
       state[action.post.id] = action.post
+      
       return state
     case REMOVE_POST:
       delete state[action.postId]

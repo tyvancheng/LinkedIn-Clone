@@ -24,10 +24,12 @@ class Api::PostsController < ApplicationController
 
     def update
         @post = Post.find(params[:id])
-        @post.author = current_user
-
-        if @post.update(post_params)
-            render "api/posts/show"
+            
+        @post.author_id = current_user.id
+            
+        if @post && @post.update(post_params)
+            @posts = Post.all.order(created_at: :desc)
+            render "api/posts/index"
         else
             render json: @post.errors.full_messages, status: 422
         end
@@ -44,6 +46,6 @@ class Api::PostsController < ApplicationController
     private
 
     def post_params
-        params.require(:post).permit(:body, :author_id)
+        params.require(:post).permit(:id, :body, :author_id)
     end
 end

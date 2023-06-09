@@ -1,11 +1,12 @@
-import React , { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { deletePost } from '../../store/posts';
-import Modal from 'react-modal';
+import { useEffect } from 'react';
 import PostTime from './postTime';
 import PostEdit from './postEdit';
 import { open_post_update_modal } from '../../store/ui';
+
 import './postIndexItem.css'
 import profileIcon from '../../images/icons8-male-user-50.png'
 
@@ -14,9 +15,12 @@ export default function PostIndexItem({ post }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector((state) => state.session.user);
+    const modalOpen = useSelector((state) => state.ui.modal);
 
-    const [showModal, setShowModal] = useState(false)
-    // const [showEditandDelete, setShowEditandDelete] = useState(false)
+    const [showDropdown, setShowDropdown] = useState(false)
+    // const dropdownOpen = useSelector((state) => state.ui.dropdown)
+
+
     const showEditandDelete = user.id === post.author.id ? true : false;
 
     const handleDelete = () => {
@@ -25,15 +29,26 @@ export default function PostIndexItem({ post }) {
         // .then(() => history.push('/feed'))
     };
 
+    
+    
+    
+    
+    const handleClick = () => {
 
-
+        dispatch(open_post_update_modal())
+        // handlePostOptions()
+  
+            
+    }
     const handlePostOptions = () => {
-        
-        setShowModal(!showModal)
-        
+
+        setShowDropdown(!showDropdown)
+        // dropdownOpen === true ? dispatch(close_dropdown()) : dispatch(show_dropdown())
+
     }
 
-
+    
+    
     if (post.length === 0) return null;
 
 
@@ -54,10 +69,10 @@ export default function PostIndexItem({ post }) {
                         {/* <div>{post.author.firstName} {post.author.lastName}</div> )} */}
                         <h6>Software Engineer @ LockedIn | App Academy</h6>
                         <h6>
-                            {post.createdAt !== post.updatedAt 
-                            ? `${PostTime(post.createdAt)} · Edited`
-                            : PostTime(post.createdAt) 
-                        }</h6>
+                            {post.createdAt !== post.updatedAt
+                                ? `${PostTime(post.createdAt)} · Edited`
+                                : PostTime(post.createdAt)
+                            }</h6>
                     </div>
                 </div>
 
@@ -65,35 +80,20 @@ export default function PostIndexItem({ post }) {
                     <h5 onClick={handlePostOptions}>&hellip;</h5>
                 </div>
 
-            </div>
-            <Modal
-                isOpen={showModal}
-                onRequestClose={() => setShowModal(false)}
-                className="post-options-modal"
-                overlayClassName="post-options-modal-overlay"
-            >
-                {showEditandDelete ? (
-                    <>
-                        
-                        <div 
-                            onClick={() => {
-                    
-                                dispatch(open_post_update_modal())
+                {showDropdown && (showEditandDelete ? (
+                    <div className='post-options-dropdown'>
+                        <div onClick={handleClick}>                            &#x270F; Edit Post
+                            <PostEdit post={post}/>
+                        </div>
+                        <button type="submit" onClick={handleDelete}>&#x1F5D1; Delete</button>
+                    </div>
+                ) : null)}
 
-                }}>Edit Post <PostEdit post={post}/></div>
-            
-                        {/* onClick: showModal = "update...", close current modal,  */}
-                        <button type="submit" onClick={handleDelete}> Delete</button>
-                    </>
-                ) : null}
-            </Modal>
-            {/* {user.id === post.author.id && (
-                <>
-                    <Link to={`/posts/${post.id}/edit`}> Edit</Link>
-                    
-                    <button type="submit" onClick={handleDelete}> Delete</button>
-                </>
-            )} */}
+                {/* null for now until alternate modal option */}
+
+            </div>
+
+
             <div className='post-body'>{post.body}</div>
         </li>
     );

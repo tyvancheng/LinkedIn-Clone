@@ -60,6 +60,7 @@ const PostForm = () => {
 
       setErrors(errorMessages);
     }
+    dispatch(force_modal_close());
     setInputValue('');
   };
 

@@ -9,7 +9,7 @@ const SignInForm = (page = null) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState({});
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -19,20 +19,34 @@ const SignInForm = (page = null) => {
         e.preventDefault();
         try {
             console.log(email, password);
-            dispatch( await loginUser({ email, password }));
-            history.push(`/feed`);
-        } catch (err) {
-            setErrors(err.errors);
+            const response = await dispatch(loginUser({ email, password }));
+            if (response.ok) {
+                history.push(`/feed`);
+            } else {
+                const errorData = await response.json();
+                console.log(errorData)
+                console.log(response)
+                if (errorData?.errors) {
+                    setErrors((prevErrors) => ({ ...prevErrors, invalidCreds: errorData.errors }));
+                } else if (errorData) {
+                    setErrors((prevErrors) => ({ ...prevErrors, invalidCreds: errorData }));
+                } else {
+                    setErrors((prevErrors) => ({ ...prevErrors, invalidCreds: response.statusText }));
+                }
+            }
+        } catch (error) {
+            setErrors((prevErrors) => ({ ...prevErrors, invalidCreds: "Invalid credentials" }));
+            
         }
     };
     
-    const loginDemoUser = async (e) => {
+    const loginDemoUser = (e) => {
 
         e.preventDefault();
         try {
             console.log(email, password);
-            dispatch( await loginUser({ email: "lockedindemo@gmail.com", password: "demouser" }));
-            history.push(`/feed`);
+            dispatch(loginUser({ email: "lockedindemo@gmail.com", password: "demouser" }))
+            .then(() => history.push(`/feed`));
         } catch (err) {
             setErrors(err.errors);
         }
@@ -40,50 +54,19 @@ const SignInForm = (page = null) => {
     const handleBlur = () => {
     
         if (!/\S+@\S+\.\S+/.test(email)) {
-            if (!errors.includes("Invalid email")) {
-                setErrors(["Invalid email"]);
-        }
+            if (errors?.invalidEmail === undefined) setErrors((prevErrors) => ({...prevErrors, invalidEmail: "Invalid email"}));
         } else {
-            setErrors([]);
+            setErrors({});
         }
     }
       
-      useEffect(() => {
-        if (errors?.includes("Invalid email")) {
-          const emailInputBox = document.getElementById("sign-in-email-box");
-          const emailInput = document.getElementById("sign-in-email-input");
-      
-          // Set the border color to red
-            emailInputBox.style.boxShadow = "none"
-            emailInputBox.style.borderColor = "red";
-            emailInputBox.style.borderWidth = "2px";
-            emailInputBox.style.borderStyle = "solid";
-      
-      
-          // Create a new error message element
-          const errorMessage = document.createElement("p");
-          errorMessage.innerText = "Invalid email";
-      
-          // Append the error message to the email input box
-
-        //   emailInputBox.appendChild(errorMessage);
-        } else {
-          const emailInputBox = document.getElementById("sign-in-email-box");
-      
-          // Reset the border color to its default value
-          emailInputBox.style.borderColor = "";
-          emailInputBox.style.borderWidth = "1px";
-
-        }
-      }, [errors]);
-    
     const signingInForm = (
         <form className="auth-form" onSubmit={handleSubmit}>
                 
                 <div className="auth-input-container">
                 
                     <label htmlFor="email">Email</label>
-                    <div id="sign-in-email-box" className="auth-input-box">
+                    <div id="sign-in-email-box" className={`auth-input-box ${errors && errors.invalidCreds ? 'error' : ''}`}>
                         <input id="sign-in-email-input" type="text" 
                         value={email} 
                         onChange={e => setEmail(e.target.value)} 
@@ -91,7 +74,8 @@ const SignInForm = (page = null) => {
                         onBlur={() => handleBlur("email")}
                         />
                     </div>
-                        <div>{errors ? errors : null}</div>
+                        
+                        {errors && <div className="error-message">{errors.invalidCreds}</div>}
 
                     <label htmlFor="password">Password</label>
                     <div className="auth-input-box">

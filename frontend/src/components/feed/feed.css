@@ -38,9 +38,14 @@
     display: none; /* Chrome, Safari, and Opera */
   }
 
+.feed-page-main-left {
+    z-index: 2;
+}
+
 .feed-page-main-index {
     display: flex;
     justify-content: center;
     align-items: start;
+    border: 1px solid black;
     /* margin-top: -300px; */
 }

@@ -4,11 +4,18 @@ const OPEN_POST_UPDATE_MODAL = 'modal/OPEN_POST_UPDATE_MODAL';
 const OPEN_POST_CREATE_MODAL = 'modal/OPEN_POST_CREATE_MODAL';
 const FORCE_MODAL_CLOSE = 'modal/FORCE_MODAL_CLOSE';
 
+// const SHOW_DROPDOWN = 'modal/SHOW_DROPDOWN';
+// const CLOSE_DROPDOWN = 'modal/CLOSE_DROPDOWN';
+
 export const open_post_update_modal = () => { return { type: OPEN_POST_UPDATE_MODAL } }
 export const open_post_create_modal = () => { return { type: OPEN_POST_CREATE_MODAL } }
 export const force_modal_close = () => { return { type: FORCE_MODAL_CLOSE } }
 
-const UIreducer = (prevstate = { modal: null }, action) => {
+// export const show_dropdown = () => { return { type: SHOW_DROPDOWN } }
+// export const close_dropdown = () => { return { type: CLOSE_DROPDOWN } }
+
+
+const UIreducer = (prevstate = { modal: null, dropdown: false }, action) => {
     Object.freeze(prevstate);
     const state = { ...prevstate }
 
@@ -23,6 +30,13 @@ const UIreducer = (prevstate = { modal: null }, action) => {
         case FORCE_MODAL_CLOSE:
             return { ...state, modal: null }
 
+        // case SHOW_DROPDOWN:
+        //     return { ...state, dropdown: true }
+
+        // case CLOSE_DROPDOWN:
+        // case OPEN_POST_CREATE_MODAL:
+        // case OPEN_POST_UPDATE_MODAL:
+        //     return { ...state, dropdown: false }
         default:
             return state
     }

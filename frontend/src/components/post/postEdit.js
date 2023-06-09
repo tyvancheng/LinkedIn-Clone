@@ -1,5 +1,5 @@
 import { updatePost } from "../../store/posts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { open_post_update_modal, force_modal_close } from "../../store/ui";
 import Modal from 'react-modal';
@@ -9,7 +9,7 @@ export const PostEdit = ({ post }) => {
     // update UI state 
     // dispatch updatePost
     // grab data from fetch and feed to Form
-
+    // console.log(showDropdown)
     const dispatch = useDispatch();
     const [inputValue, setInputValue] = useState(post.body);
     const [errors, setErrors] = useState([]);
@@ -31,6 +31,7 @@ export const PostEdit = ({ post }) => {
             
         }
     }
+
 
     const handleInputChange = (event) => {
         const val = event.target.value

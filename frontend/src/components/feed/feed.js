@@ -1,5 +1,5 @@
-import { useState, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../store/session";
 import { useHistory } from "react-router-dom";
 import PostIndex from "../post/postIndex";
@@ -17,17 +17,24 @@ const Feed = () => {
 
     return (
         <div className="feed-page">
+
             <div className="feed-page-nav">
                 <div className="feed-page-nav-content">
                     {NavBar()}
                 </div>
-            </div> 
-            <div className="feed-page-main">
-                    <div className="feed-page-main-index">
-                        {PostIndex()
-                    }</div>
             </div>
-            
+
+            <div className="feed-page-main">
+
+                <div className="feed-page-main-left">
+
+                </div>
+                
+                <div className="feed-page-main-index">
+                    {PostIndex()}
+                </div>
+            </div>
+
         </div>
     )
 }

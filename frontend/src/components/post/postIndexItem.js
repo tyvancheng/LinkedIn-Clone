@@ -28,10 +28,6 @@ export default function PostIndexItem({ post }) {
         dispatch(deletePost(post.id))
         // .then(() => history.push('/feed'))
     };
-
-    
-    
-    
     
     const handleClick = () => {
 

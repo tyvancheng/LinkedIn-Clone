@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import PostTime from './postTime';
 import PostEdit from './postEdit';
 import { open_post_update_modal } from '../../store/ui';
+import { likePost, unlikePost } from '../../store/posts';
 
 import './postIndexItem.css'
 import profileIcon from '../../images/icons8-male-user-50.png'
@@ -16,7 +17,7 @@ export default function PostIndexItem({ post }) {
     const history = useHistory();
     const user = useSelector((state) => state.session.user);
     const modalOpen = useSelector((state) => state.ui.modal);
-
+    // const likeId = post.likes
     const [showDropdown, setShowDropdown] = useState(false)
     // const dropdownOpen = useSelector((state) => state.ui.dropdown)
 
@@ -24,27 +25,27 @@ export default function PostIndexItem({ post }) {
     const showEditandDelete = user.id === post.author.id ? true : false;
 
     const handleDelete = () => {
-
         dispatch(deletePost(post.id))
         // .then(() => history.push('/feed'))
     };
-    
+
     const handleClick = () => {
 
         dispatch(open_post_update_modal())
         // handlePostOptions()
-  
-            
     }
     const handlePostOptions = () => {
-
         setShowDropdown(!showDropdown)
         // dropdownOpen === true ? dispatch(close_dropdown()) : dispatch(show_dropdown())
-
     }
 
-    
-    
+    const handleLikeButton = () => {
+        dispatch(likePost(post.id))
+    }
+
+    const handleUnlikeButton = () => {
+        if (post.likes && post.likes[user.id]) dispatch(unlikePost(post.id, post.likes[user.id].id))
+    }
     if (post.length === 0) return null;
 
 
@@ -79,7 +80,7 @@ export default function PostIndexItem({ post }) {
                 {showDropdown && (showEditandDelete ? (
                     <div className='post-options-dropdown'>
                         <div onClick={handleClick}>                            &#x270F; Edit Post
-                            <PostEdit post={post}/>
+                            <PostEdit post={post} />
                         </div>
                         <button type="submit" onClick={handleDelete}>&#x1F5D1; Delete</button>
                     </div>
@@ -91,6 +92,12 @@ export default function PostIndexItem({ post }) {
 
 
             <div className='post-body'>{post.body}</div>
+            <hr/>
+            {(post.likes && post.likes[user.id])
+            ? <button onClick={handleUnlikeButton}>Unlike</button>
+            : <button onClick={handleLikeButton}>Like</button>}
+            {/* <button onClick={handleLikeButton}>Like</button>
+            <button onClick={handleUnlikeButton}>Unlike</button> */}
         </li>
     );
 }

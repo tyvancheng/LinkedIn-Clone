@@ -22,6 +22,8 @@ class Post < ApplicationRecord
 
     belongs_to :author, foreign_key: :author_id, class_name: :User
 
+    has_many :likes
+    has_many :likers, through: :likes, class_name: :User
     private
     def validate_body_length
         if body.present?

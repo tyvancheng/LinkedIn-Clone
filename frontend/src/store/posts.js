@@ -3,7 +3,8 @@ import { csrfFetch } from "./csrf";
 export const RECEIVE_POSTS = 'posts/RECEIVE_POSTS'
 export const RECEIVE_POST = 'posts/RECEIVE_POST'
 export const REMOVE_POST = 'posts/REMOVE_POST'
-
+export const LIKE_POST_SUCCESS = 'LIKE_POST_SUCCESS';
+export const UNLIKE_POST_SUCCESS = 'UNLIKE_POST_SUCCESS';
 
 //Actions
 export const receivePosts = posts => { return { type: RECEIVE_POSTS, posts } }
@@ -12,7 +13,9 @@ export const receivePost = post => { return { type: RECEIVE_POST, post } }
 
 export const removePost = postId => { return { type: REMOVE_POST, postId } }
 
+export const likePostSuccess = (postId, like) => { return { type: LIKE_POST_SUCCESS, postId, like } };
 
+export const unlikePostSuccess = (postId, likerId) => { return { type: UNLIKE_POST_SUCCESS, postId, likerId} };
 
 //Selectors
 export const getPost = postId => (state) => state.posts ? state.posts[postId] : null
@@ -77,33 +80,110 @@ export const deletePost = postId => async dispatch => {
   })
   
   dispatch(removePost(postId))
-  // return res
 }
+
+export const likePost = (postId) => async dispatch => {
+  const res = await csrfFetch(`/api/posts/${postId}/likes`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+      if (!res.ok) {
+        throw new Error(res.statusText);
+      }
+      const data = await res.json();
+      console.log(data)
+      
+      dispatch(likePostSuccess(postId, data));
+};
+
+export const unlikePost = (postId,likeId) => async dispatch => {
+  const res = await csrfFetch(`/api/posts/${postId}/likes/${likeId}`, {
+    method: 'DELETE',
+  })
+      if (!res.ok) {
+        throw new Error(res.statusText);
+      }
+      const data = await res.json();
+      dispatch(unlikePostSuccess(postId, data));
+};
 /*
 Export a `postsReducer` function as the default export. It should take in the
 old state and an action. It should appropriately handle all post actions, as
 defined in the test specs.
 */
 
+// export default function postsReducer(prev = {}, action) {
+//   const state = {...prev}
+//   console.log("action:", action)
+//   console.log("prev:", prev)
+//   // console.log("action:", action)
+//   // console.log("state:", state)
+//   switch (action.type) {
+//     case RECEIVE_POSTS:
+//       return { ...action.posts}
+//     case UNLIKE_POST_SUCCESS:
+//     case LIKE_POST_SUCCESS:
+//       state[action.post.id.likes.id] = action.
+//     case RECEIVE_POST:
+//       state[action.post.id] = action.post
+      
+//       return state
+//     case REMOVE_POST:
+//       delete state[action.postId]
+//       return state
+//     default:
+//       return prev
+//     }
+// }
 export default function postsReducer(prev = {}, action) {
-  const state = {...prev}
-  console.log("action:", action)
-  console.log("prev:", prev)
-  // console.log("action:", action)
-  // console.log("state:", state)
+  const state = { ...prev };
+
   switch (action.type) {
     case RECEIVE_POSTS:
-      return { ...action.posts}
+      return { ...action.posts };
+    case UNLIKE_POST_SUCCESS:
+      if (state[action.postId].likes) {
+        delete state[action.postId].likes[action.likerId]
+      } else {
+        state[action.postId].likes = ({})
+      }
+      return state
+    case LIKE_POST_SUCCESS:
+      if (state[action.postId].likes) {
+        state[action.postId].likes[action.like.likerId] = action.like
+      } else {
+        state[action.postId].likes = ({})
+        state[action.postId].likes[action.like.likerId] = action.like
+      }
+      return state
     case RECEIVE_POST:
-      
-      state[action.post.id] = action.post
-      
-      return state
+      state[action.post.id] = action.post;
+      return state;
+
+    // case LIKE_POST_SUCCESS:
+    //   // const { postId, like } = action;
+    //   state[action.post.id.likes] = {
+    //     ...state,
+    //     likes: [...state, state[action.likes]],
+    //   };
+    //   return state;
+
+    // case UNLIKE_POST_SUCCESS:
+    //   const { postId, likeId } = action;
+    //   state[postId] = {
+    //     ...state[postId],
+    //     likes: state[postId].likes.filter((like) => like.id !== likeId),
+    //   };
+    //   return state;
+
     case REMOVE_POST:
-      delete state[action.postId]
-      return state
+      delete state[action.postId];
+      return state;
+
     default:
-      return prev
-    }
+      return prev;
+  }
 }
 

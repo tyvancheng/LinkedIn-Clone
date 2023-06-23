@@ -36,7 +36,9 @@ class User < ApplicationRecord
     before_validation :ensure_session_token
 
     has_many :posts, foreign_key: :author_id, class_name: :Post, dependent: :destroy
-
+    
+    has_many :likes, foreign_key: :liker_id, class_name: :Like, dependent: :destroy
+    has_many :liked_posts, through: :likes, class_name: :Post
     
     
     def ensure_session_token

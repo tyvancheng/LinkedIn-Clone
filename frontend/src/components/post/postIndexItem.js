@@ -132,7 +132,7 @@ export default function PostIndexItem({ post }) {
                 <button>{<img src={sendIcon} alt='sendicon' />}Share</button>
             </div>
 
-            {/* Comment Section of a Post*/}
+            {/* Comment Section */}
             {(commentLog === true) && (
                 <>
                     <input value={commentValue} onChange={handleCommentChange} placeholder='Add a comment...'></input>

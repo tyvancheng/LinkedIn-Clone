@@ -10,7 +10,7 @@
     min-height: 100px;
     border-radius: 8px;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    /* width: 50%; */
+    /* min-width: 300px; */
 }
 
 .header-in-post > img {
@@ -136,7 +136,56 @@
     z-index: 2;
   }
 
+.like-count-container {
+    display: flex;
+    flex-direction: row;
+    /* border: 1px solid black; */
+}
+  .like-count {
+    margin-left: 10px;
+    color: grey;
+  }
+
+  .like-count:hover {
+    cursor: pointer;
+    color: rgb(63, 111, 255);
+    font-weight: 400;
+  }
+.like-count-image {
+    margin-left: 10px;
+    max-width: 15px;
+}
 hr {
     border-width: 1px;
   width: 25%;
+}
+
+.post-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.post-button-container button {
+    display: flex;
+    min-height: 40px;
+    padding-left: 34px;
+    padding-right: 34px;
+    align-items: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    border: none;
+    background-color: transparent;
+    border-radius: 4px;
+    color: grey;
+}
+
+.post-button-container button:hover {
+    background-color:#ccc;
+    cursor: pointer;
+}
+
+.post-button-container button img {
+    max-width: 20px;
+    /* border: 1px solid black; */
 }

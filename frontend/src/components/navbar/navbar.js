@@ -104,7 +104,7 @@ const NavBar = () => {
               <div className='bottom-dropdown-modal'>
                 
                 <div>
-                  <h1>Manage Account</h1>
+                  <h1>count</h1>
                   <button onClick={() => handleLogout()}>Sign Out</button>
                 </div>
                 

@@ -39,6 +39,8 @@ class User < ApplicationRecord
     
     has_many :likes, foreign_key: :liker_id, class_name: :Like, dependent: :destroy
     has_many :liked_posts, through: :likes, class_name: :Post
+
+    has_many :authored_comments, foreign_key: :author_id, class_name: :Comment, dependent: :destroy
     
     
     def ensure_session_token

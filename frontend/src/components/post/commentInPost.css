@@ -1,0 +1,36 @@
+.comment-container {
+    display: flex;
+    flex-direction: row;
+    /* border: 1px solid black; */
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.comment-profile-image {
+    max-width: 45px;
+    max-height: 45px;
+}
+.comment-credentials-and-body-container {
+    /* border: 1px solid black; */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 90%;
+    margin-left: 5px;
+    padding-left: 10px;
+    background-color: #efefef;
+}
+
+.comment-author-name {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.comment-author-bio {
+    font-size: 12px;
+    color: grey;
+}
+
+.comment-body {
+    font-size: 14px;
+    margin-top: 20px;  /*  Change to margin if space changes if bio */
+}

@@ -1,16 +1,15 @@
 import { Link, useHistory } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deletePost } from '../../store/posts';
-import { useEffect } from 'react';
 import PostTime from './postTime';
 import PostEdit from './postEdit';
-import { open_post_update_modal } from '../../store/ui';
+import { open_post_update_modal, open_post_likers_modal } from '../../store/ui';
 import { likePost, unlikePost, addComment } from '../../store/posts';
 import sendIcon from '../../images/send-icon.png';
 import likeIcon from '../../images/like-icon.png';
 import commentIcon from '../../images/comment-icon.png';
-
+import { PostLikersModal } from './postLikersModal';
 
 import './postIndexItem.css'
 import profileIcon from '../../images/icons8-male-user-50.png'
@@ -20,11 +19,14 @@ import CommentInPost from './commentInPost';
 export default function PostIndexItem({ post }) {
     const dispatch = useDispatch();
     const history = useHistory();
+
     const user = useSelector((state) => state.session.user);
     const modalOpen = useSelector((state) => state.ui.modal);
+
     const [showDropdown, setShowDropdown] = useState(false)
     const [commentValue, setCommentValue] = useState("")
     const [commentLog, setCommentLog] = useState(false)
+    const textareaRef = useRef(null);
 
     const showEditandDelete = user.id === post.author.id ? true : false;
 
@@ -33,6 +35,21 @@ export default function PostIndexItem({ post }) {
     }
     const handleCommentChange = (event) => {
         setCommentValue(event.target.value);
+        adjustTextareaHeight();
+    };
+
+    const adjustTextareaHeight = () => {
+        if (textareaRef.current) {
+
+
+            textareaRef.current.style.height = 'auto';
+            textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+
+            if (textareaRef.current.scrollHeight <= 43) {
+                textareaRef.current.style.height = '20px';
+            }
+            textareaRef.current.style.overflow = 'auto'
+        }
     };
 
     const handleComment = () => {
@@ -70,7 +87,12 @@ export default function PostIndexItem({ post }) {
         if (likeCount === 0) { return null }
         return (
             <div className='like-count-container'>
-                {<img className='like-count-image' src={likeIcon} alt='likeicon' />} {<div className='like-count'>{likeCount}</div>}
+                <img className='like-count-image' src={likeIcon} alt='likeicon' /> 
+                <div 
+                    onClick={() => dispatch(open_post_likers_modal())} 
+                    className='like-count'>  {likeCount}
+                </div>
+                <PostLikersModal post={post}/>
             </div>
         );
     }
@@ -114,7 +136,6 @@ export default function PostIndexItem({ post }) {
                     </div>
                 ) : null)}
 
-                {/* null for now until alternate modal option */}
 
             </div>
 
@@ -135,14 +156,27 @@ export default function PostIndexItem({ post }) {
             {/* Comment Section in post*/}
             {(commentLog === true) && (
                 <>
-                    <input value={commentValue} onChange={handleCommentChange} placeholder='Add a comment...'></input>
+                    <div className='add-comment-area-container'>
+                        <img src={profileIcon} className='comment-profile-image'></img>
+                        <div className='add-comment-container'>
+                            <textarea
+                                ref={textareaRef}
+                                contentEditable="true"
+                                value={commentValue}
+                                onChange={handleCommentChange}
+                                placeholder='Add a comment...'
+                            ></textarea>
+                        </div>
+                    </div>
                     {commentValue && <button onClick={handleComment}></button>}
 
-                    {post.comments &&
-                        Object.values(post.comments).map(comment => {
-                            return <CommentInPost comment={comment} key={comment.id}/>
-                        })
-                    }
+                    <div className='comments-container'>
+                        {post.comments &&
+                            Object.values(post.comments).map(comment => {
+                                return <CommentInPost comment={comment} key={comment.id} />
+                            })
+                        }
+                    </div>
                 </>
             )}
 

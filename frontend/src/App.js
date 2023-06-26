@@ -6,6 +6,7 @@ import Welcome from './components/welcome/welcome';
 import SignInForm from './components/session_form/sign_in_form';
 import SignUpForm from './components/session_form/sign_up_form';
 import Feed from './components/feed/feed';
+import { Profile } from './components/profile/profile';
 
 function App() {
 
@@ -26,7 +27,8 @@ function App() {
       </Route>
       <Route path="/feed" component={Feed} >
           {user ? <Feed /> : <Redirect to="/" />}
-          </Route>
+      </Route>
+      <Route path="/profile/:id" component={Profile}></Route>
     
     </Switch>
   </div>

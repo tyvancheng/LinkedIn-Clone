@@ -26,6 +26,7 @@
           json.set!(like.liker_id.to_s) do
             json.id like.id
             json.liker_id like.liker_id
+            json.liker like.liker
           end
         end
       end

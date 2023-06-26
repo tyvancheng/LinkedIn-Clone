@@ -189,3 +189,42 @@ hr {
     max-width: 20px;
     /* border: 1px solid black; */
 }
+
+.add-comment-area-container {
+    display: flex;
+    flex-direction: row;
+    /* border: 1px solid black; */
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.add-comment-container {
+    display: flex;
+    width: 90%;
+    margin-left: 5px;
+    padding-left: 10px;
+    border: 1px solid black;
+    border-radius: 24px;
+}
+
+.add-comment-container textarea {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    margin-top: 9px;
+    border: none ;
+    background-color: transparent;
+    width: 80%;
+    /* text-align: center; */
+    resize: none;
+    /* display: flex;
+    justify-content: flex-start;
+    align-items: center; */
+    height: 20px;
+    outline: none;
+    overflow: hidden;
+    /* line-height: 20px; */
+}
+.comments-container {
+    margin-top: 20px;
+}

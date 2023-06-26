@@ -29,7 +29,6 @@ class ApplicationController < ActionController::API
     end
 
     def logged_in?
-        debugger
         !!current_user
     end
 

@@ -19,7 +19,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -73,8 +73,13 @@
   }
 
   .post-likers-modal-liker img{
-    width: 60px;
+    width: 70px;
     height: 60px;
+    /* height: auto; */
+  }
+
+  .post-likers-modal-liker img:hover {
+    cursor: pointer;
   }
 
   .post-likers-modal-liker-info {
@@ -83,6 +88,10 @@
     padding-left: 5px;
     padding-top: 10px;
 
+  }
+
+  .post-likers-modal-liker-info:hover {
+    cursor: pointer;
   }
 
   .post-likers-modal-liker-name {

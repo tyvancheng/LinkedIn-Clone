@@ -9,6 +9,7 @@ import { likePost, unlikePost, addComment } from '../../store/posts';
 import sendIcon from '../../images/send-icon.png';
 import likeIcon from '../../images/like-icon.png';
 import commentIcon from '../../images/comment-icon.png';
+import repostIcon from '../../images/repost-icon.png';
 import { PostLikersModal } from './postLikersModal';
 
 import './postIndexItem.css'
@@ -57,6 +58,7 @@ export default function PostIndexItem({ post }) {
         debugger // see commenbt value
         if (commentValue === '') return null
         dispatch(addComment(post.id, commentValue))
+        setCommentValue("")
     }
 
     const handleDelete = () => {
@@ -87,34 +89,29 @@ export default function PostIndexItem({ post }) {
         if (likeCount === 0) { return null }
         return (
             <div className='like-count-container'>
-                <img className='like-count-image' src={likeIcon} alt='likeicon' /> 
-                <div 
-                    onClick={() => dispatch(open_post_likers_modal())} 
+                <img className='like-count-image' src={likeIcon} alt='likeicon' />
+                <div
+                    onClick={() => dispatch(open_post_likers_modal())}
                     className='like-count'>  {likeCount}
                 </div>
-                <PostLikersModal post={post}/>
+                <PostLikersModal post={post} />
             </div>
         );
     }
     if (post.length === 0) return null;
 
-
-
     return (
         <li className="post-in-feed" key={post.id}>
-            {/* <li className="post-in-feed"> */}
 
-
-            {/* Maybe add profile picture image here */}
             <div className='header-in-post'>
                 <div className='header-in-post-left'>
-                    <img src={profileIcon} alt='profileicon' />
-
+                    <div className='profile-picture-container'>
+                        <img src={post.author.profile_picture_url} />
+                    </div>
                     <div className='header-in-post-credentials'>
                         {post.author && (
-                            <div>{`${post.author.firstName} ${post.author.lastName}`}</div>)}
-                        {/* <div>{post.author.firstName} {post.author.lastName}</div> )} */}
-                        <h6>Software Engineer @ LockedIn | App Academy</h6>
+                            <div>{`${post.author.first_name} ${post.author.last_name}`}</div>)}
+                        {post.author.bio && <h6>{post.author.bio}</h6>}
                         <h6>
                             {post.createdAt !== post.updatedAt
                                 ? `${PostTime(post.createdAt)} · Edited`
@@ -124,7 +121,7 @@ export default function PostIndexItem({ post }) {
                 </div>
 
                 <div className='header-in-post-right'>
-                    <h5 onClick={handlePostOptions}>&hellip;</h5>
+                    {post.author.id === user.id && <h5 onClick={handlePostOptions}>&hellip;</h5>}
                 </div>
 
                 {showDropdown && (showEditandDelete ? (
@@ -146,10 +143,10 @@ export default function PostIndexItem({ post }) {
             <hr />
             <div className='post-button-container'>
                 {(post.likes && post.likes[user.id])
-                    ? <button onClick={handleUnlikeButton}>{<img src={likeIcon} alt='likeicon' />}Unlike</button>
+                    ? <button onClick={handleUnlikeButton} className='active-unlike-button'>{<img src={likeIcon} alt='likeicon' />}Unlike</button>
                     : <button onClick={handleLikeButton}>{<img src={likeIcon} alt='likeicon' />}Like</button>}
                 <button onClick={handleOpenCommentLog}>{<img src={commentIcon} alt='commenticon' />}Comment</button>
-                <button>Repost</button>
+                <button>{<img src={repostIcon} alt='reposticon' />}Repost</button>
                 <button>{<img src={sendIcon} alt='sendicon' />}Share</button>
             </div>
 
@@ -157,7 +154,8 @@ export default function PostIndexItem({ post }) {
             {(commentLog === true) && (
                 <>
                     <div className='add-comment-area-container'>
-                        <img src={profileIcon} className='comment-profile-image'></img>
+                        {/* <img src={profileIcon} className='comment-profile-image'></img> */}
+                        <img src={user.profilePictureUrl} className='comment-profile-image'></img>
                         <div className='add-comment-container'>
                             <textarea
                                 ref={textareaRef}
@@ -168,7 +166,7 @@ export default function PostIndexItem({ post }) {
                             ></textarea>
                         </div>
                     </div>
-                    {commentValue && <button onClick={handleComment}></button>}
+                    {commentValue && <button className='add-comment-button' onClick={handleComment}>Post</button>}
 
                     <div className='comments-container'>
                         {post.comments &&

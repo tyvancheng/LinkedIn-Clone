@@ -1,5 +1,6 @@
 import Modal from 'react-modal';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { force_modal_close } from '../../store/ui';
 import closeIcon from '../../images/close-icon.png';
 import icon from '../../images/icons8-male-user-50.png';
@@ -8,6 +9,7 @@ import './postLikersModal.css'
 
 export const PostLikersModal = ({ post }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const open = useSelector((state) => state.ui.modal);
 
     return (
@@ -20,17 +22,22 @@ export const PostLikersModal = ({ post }) => {
             <div className='post-likers-modal-content'>
                 <div className='post-likers-modal-header'>
                     <div>Reactions</div>
-                    <img src={closeIcon}></img>
+                    <img onClick={() => dispatch(force_modal_close())} src={closeIcon}></img>
                 </div>
 
                 <hr />
                 <div className='post-likers-modal-list'>
                     {Object.values(post.likes).map(like => {
+                        const handleProfileRedirect = () => {
+                            history.push(`/profile/${like.liker.id}`)
+                        }
                         return (
                             <>
                                 <div className='post-likers-modal-liker'>
-                                    <img src={icon}></img>
-                                    <div className='post-likers-modal-liker-info'>
+                                    <div className='profile-picture-container'>
+                                        <img src={like.liker.profile_picture_url} onClick={handleProfileRedirect}></img>
+                                    </div>
+                                    <div className='post-likers-modal-liker-info' onClick={handleProfileRedirect}>
                                         <div className='post-likers-modal-liker-name'>{`${like.liker.first_name} ${like.liker.last_name}`}</div>
                                         {like.liker.bio && <div className=''>{like.liker.bio}</div>}
                                     </div>

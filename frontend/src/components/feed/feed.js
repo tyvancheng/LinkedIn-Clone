@@ -20,18 +20,22 @@ const Feed = () => {
 
             <div className="feed-page-nav">
                 <div className="feed-page-nav-content">
-                    {NavBar()}
+                    {/* {NavBar()} */}
+                    <NavBar/>
                 </div>
             </div>
 
             <div className="feed-page-main">
 
-                <div className="feed-page-main-left">
-
-                </div>
+                {/* <div className="feed-page-main-left">
+                    <div>
+                        
+                    </div>
+                </div> */}
                 
                 <div className="feed-page-main-index">
-                    {PostIndex()}
+                    {/* {PostIndex()} */}
+                    <PostIndex />
                 </div>
             </div>
 

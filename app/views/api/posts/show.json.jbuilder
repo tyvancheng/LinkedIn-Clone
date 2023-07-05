@@ -15,7 +15,7 @@ json.post do
     end
   end
   json.comments do
-    post.comments.each do |comment|
+    @post.comments.each do |comment|
       json.set!(comment.id.to_s) do
         json.id comment.id
         json.author_id comment.author_id

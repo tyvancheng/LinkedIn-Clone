@@ -6,7 +6,8 @@ export default function CommentInPost({ comment }) {
     return (
         <>
             <div className='comment-container'>
-                <img src={icon} className='comment-profile-image'></img>
+                {/* <img src={icon} className='comment-profile-image'></img> */}
+                <img src={comment.author.profile_picture_url} className='comment-profile-image'></img>
                 <div className='comment-credentials-and-body-container'>
                    <div className='comment-author-name'>{`${comment.author.first_name} ${comment.author.last_name}`}</div>
                     {comment.author.bio && <div className='comment-author-bio'>{comment.author.bio}</div>}

@@ -15,10 +15,11 @@ export const PostEdit = ({ post }) => {
     const [errors, setErrors] = useState([]);
     const user = useSelector((state) => state.session.user);
     const showModal = useSelector((state) => state.ui.modal);
-
+debugger
     const handleCloseModal = () => {
         
-        if (inputValue) {
+        if (inputValue !== post.body) {
+            debugger
             return (
             <>
                 <h1>Discard changes?</h1>
@@ -27,6 +28,7 @@ export const PostEdit = ({ post }) => {
             </>
             )
         } else {
+            debugger
             dispatch(force_modal_close());
             
         }

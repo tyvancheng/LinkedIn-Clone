@@ -1,9 +1,10 @@
-import icon from '../../images/icons8-male-user-50.png';
 import './commentInPost.css'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect, useRef } from 'react';
+import { deleteComment } from '../../store/posts';
 
 export default function CommentInPost({ comment, post }) {
+    const dispatch = useDispatch();
     const user = useSelector((state) => state.session.user)
     const [modalOpen, setModalOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -13,19 +14,20 @@ export default function CommentInPost({ comment, post }) {
     }
 
     const handleClick = () => {
+        setModalOpen(!modalOpen)
+    }
+
+    const handleDelete = () => {
         debugger
-        if (modalOpen === false) {debugger;setModalOpen(true);debugger}
-        if (modalOpen === true) {debugger;setModalOpen(false);debugger}
+        dispatch(deleteComment(post.id, comment.id))
     }
 
     useEffect(() => {
         const handleOutsideClick = (event) => {
-            debugger
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setModalOpen(false);
             }
         };
-        debugger
         if (!modalOpen) return
 
         document.addEventListener('mousedown', handleOutsideClick);
@@ -33,7 +35,7 @@ export default function CommentInPost({ comment, post }) {
         return () => {
             document.removeEventListener('mousedown', handleOutsideClick);
         };
-    }, []);
+    }, [modalOpen]);
 
     return (
         <>
@@ -43,14 +45,13 @@ export default function CommentInPost({ comment, post }) {
                 <div className='comment-credentials-and-body-container'>
                     <div className='comment-credentials-first-line'>
                         <div className='comment-author-name'>{`${comment.author.first_name} ${comment.author.last_name}`}</div>
-                        {validUser() && <h4 onClick={handleClick}>&hellip;</h4>}
+                        {(validUser() && !modalOpen) && <h4 onClick={handleClick}>&hellip;</h4>}
                         {modalOpen &&
                             <>
                                 <div ref={dropdownRef} className={`comment-options-dropdown ${comment.author.id !== user.id && 'no-edit'}`}>
                                     {comment.author.id === user.id && <div onClick={handleClick}> &#x270F; Edit </div>}
-                                    <button type="submit">&#x1F5D1; Delete</button>
+                                    <div onClick={handleDelete}>&#x1F5D1; Delete</div>
                                 </div>
-
                             </>
                         }
                     </div>

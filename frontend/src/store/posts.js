@@ -6,6 +6,7 @@ export const REMOVE_POST = 'posts/REMOVE_POST'
 export const LIKE_POST_SUCCESS = 'LIKE_POST_SUCCESS';
 export const UNLIKE_POST_SUCCESS = 'UNLIKE_POST_SUCCESS';
 export const RECEIVE_COMMENT = 'RECEIVE_COMMENT';
+export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 
 //Actions
 export const receivePosts = posts => { return { type: RECEIVE_POSTS, posts } }
@@ -20,6 +21,7 @@ export const unlikePostSuccess = (postId, likerId) => { return { type: UNLIKE_PO
 
 export const receiveComment = (postId, comment) => { return { type: RECEIVE_COMMENT, postId, comment } }
 
+export const removeComment = (postId, comment) => { return { type: REMOVE_COMMENT, postId, comment } }
 //Selectors
 export const getPost = postId => (state) => state.posts ? state.posts[postId] : null
 
@@ -121,38 +123,19 @@ export const addComment = (postId, body) => async dispatch => {
   })
 
   const data = await res.json()
-  console.log("commentData:", data)
   dispatch(receiveComment(postId, data));
 }
-/*
-Export a `postsReducer` function as the default export. It should take in the
-old state and an action. It should appropriately handle all post actions, as
-defined in the test specs.
-*/
 
-// export default function postsReducer(prev = {}, action) {
-//   const state = {...prev}
-//   console.log("action:", action)
-//   console.log("prev:", prev)
-//   // console.log("action:", action)
-//   // console.log("state:", state)
-//   switch (action.type) {
-//     case RECEIVE_POSTS:
-//       return { ...action.posts}
-//     case UNLIKE_POST_SUCCESS:
-//     case LIKE_POST_SUCCESS:
-//       state[action.post.id.likes.id] = action.
-//     case RECEIVE_POST:
-//       state[action.post.id] = action.post
+export const deleteComment = (postId, commentId) => async dispatch =>{
+  const res = await csrfFetch(`/api/posts/${postId}/comments/${commentId}`, {
+    method: 'DELETE'
+  })
 
-//       return state
-//     case REMOVE_POST:
-//       delete state[action.postId]
-//       return state
-//     default:
-//       return prev
-//     }
-// }
+  const data = await res.json()
+  console.log("commentData:", data)
+  debugger
+  dispatch(removeComment(postId, data));
+}
 export default function postsReducer(prev = {}, action) {
   const state = { ...prev };
 

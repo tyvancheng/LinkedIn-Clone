@@ -1,9 +1,9 @@
 class Api::CommentsController < ApplicationController
     before_action :require_logged_in
     before_action :find_comment, only: [:show, :update, :destroy]
+    before_action :find_post, only: [:create, :destroy, :index]
     before_action :authorize_deletion, only: [:destroy]
     before_action :authorize_update, only: [:update]
-    before_action :find_post, only: [:create, :index]
   
     def create
         @user = current_user
@@ -27,8 +27,8 @@ class Api::CommentsController < ApplicationController
     end
   
     def destroy
+      debugger
       @comment.destroy
-      head :no_content
     end
   
     private
@@ -52,7 +52,7 @@ class Api::CommentsController < ApplicationController
     end
 
     def authorize_deletion
-      unless current_user == @comment.user || current_user == @comment.post.user
+      unless current_user == @comment.author || current_user == @comment.post.user
         render json: { error: 'Unauthorized' }, status: :unauthorized
       end
     end

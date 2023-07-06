@@ -67,7 +67,7 @@ export default function PostIndexItem({ post }) {
     };
 
     const handleClick = () => {
-
+        debugger
         dispatch(open_post_update_modal())
         // handlePostOptions()
     }

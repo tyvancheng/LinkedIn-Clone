@@ -17,6 +17,7 @@ export const open_post_likers_modal = () => { return { type: OPEN_POST_LIKERS_MO
 
 
 const UIreducer = (prevstate = { modal: null, dropdown: false }, action) => {
+    debugger
     Object.freeze(prevstate);
     const state = { ...prevstate }
 

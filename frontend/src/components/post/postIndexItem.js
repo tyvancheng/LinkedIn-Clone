@@ -171,7 +171,7 @@ export default function PostIndexItem({ post }) {
                     <div className='comments-container'>
                         {post.comments &&
                             Object.values(post.comments).map(comment => {
-                                return <CommentInPost comment={comment} key={comment.id} />
+                                return <CommentInPost comment={comment} key={comment.id} post={post} />
                             })
                         }
                     </div>

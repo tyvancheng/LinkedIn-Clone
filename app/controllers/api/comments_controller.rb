@@ -1,7 +1,8 @@
 class Api::CommentsController < ApplicationController
     before_action :require_logged_in
     before_action :find_comment, only: [:show, :update, :destroy]
-    before_action :authorize_owner, only: [:update, :destroy]
+    before_action :authorize_deletion, only: [:destroy]
+    before_action :authorize_update, only: [:update]
     before_action :find_post, only: [:create, :index]
   
     def create
@@ -16,15 +17,6 @@ class Api::CommentsController < ApplicationController
         render json: @comment.errors.full_messages, status: 422
       end
     end
-  
-    # def index
-    #   @comments = @post.comments
-    #   render json: @comments
-    # end
-  
-    # def show
-    #   render json: @comment
-    # end
   
     def update
       if @comment.update(comment_params)
@@ -52,8 +44,14 @@ class Api::CommentsController < ApplicationController
     def find_post
       @post = Post.find(params[:post_id])
     end
-  
-    def authorize_owner
+    
+    def authorize_update
+      unless current_user == @comment.user
+        render json: { error: 'Unauthorized' }, status: :unauthorized
+      end
+    end
+
+    def authorize_deletion
       unless current_user == @comment.user || current_user == @comment.post.user
         render json: { error: 'Unauthorized' }, status: :unauthorized
       end

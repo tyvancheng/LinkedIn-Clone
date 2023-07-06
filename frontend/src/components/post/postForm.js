@@ -77,10 +77,8 @@ const PostForm = () => {
       <div className='start-a-post'>
         <div className='start-a-post-icon-container'>
           <img className='start-a-post-icon' src={user.profilePictureUrl}></img>
+          <div className='start-a-post-modal-opener' onClick={() => handOpen()}>Start a Post</div>
         </div>
-        {/* <img className='start-a-post-icon' src={linkedinicon}></img> */}
-        {/* <img className='start-a-post-icon' src={user.profilePictureUrl} /> */}
-        <div className='start-a-post-modal-opener' onClick={() => handOpen()}>Start a Post</div>
       </div>
       <hr />
 

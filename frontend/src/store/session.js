@@ -2,6 +2,7 @@
     // ACTION TYPES
     const SET_CURRENT_USER = 'session/SET_CURRENT_USER';
     const REMOVE_USER = 'session/REMOVE_USER';
+    const SHOW_USER_PAGE = 'session/SHOW_USER_PAGE';
 
     // ACTION CREATORS
     export const setCurrentUser = user => ({
@@ -13,7 +14,11 @@
         type: REMOVE_USER
     });
 
- 
+    export const showUserPage = user => ({
+        type: SHOW_USER_PAGE,
+        payload: user
+    });
+
     // THUNK ACTION CREATORS
     export const loginUser = user => async dispatch => {
         try {
@@ -65,6 +70,25 @@
         // }
     }
 
+    export const showUser = userId => async dispatch => {
+        // try {
+            let res = await csrfFetch(`/api/users/${userId}`);
+
+            if (res.ok) {
+                let data = await res.json();
+                if (data.errors) throw data;
+                console.log("data:", data)
+                debugger
+                dispatch(showUserPage(data.user))
+            } else {
+                throw res
+            }
+        // } catch (err) {
+        //     let errors = await err.json();
+        //     throw errors
+        // }
+    }
+
   //Session User
   
   export const restoreSession = () => async (dispatch) => {
@@ -90,7 +114,8 @@
 
     // REDUCER
     const prev = {
-        user: JSON.parse(sessionStorage.getItem("currentUser"))
+        user: JSON.parse(sessionStorage.getItem("currentUser")),
+        profilePageUser: null
     };
 
     const sessionReducer = ( state = prev, action ) => {
@@ -103,6 +128,9 @@
 
             case REMOVE_USER:
                 return { ...nextState, user: null};
+
+            case SHOW_USER_PAGE:
+                return { ...nextState, profilePageUser: action.payload}
 
             default:
                 return state;

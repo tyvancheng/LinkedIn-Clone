@@ -19,7 +19,7 @@ const NavBar = () => {
   const [showModal, setShowModal] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
-
+debugger
   if (!user) return null;
 
   const toggleModal = () => {
@@ -91,12 +91,13 @@ const NavBar = () => {
             <div className="dropdown-modal-content">
               
               <div className='header-in-post-left'>
-                    <img src={maleIcon} alt='profileicon' />
-
+                  <div>
+                    <img src={user.profilePictureUrl} alt='profileicon' />
+                    </div>
                     <div className='header-in-modal-credentials'>
                 
                             <div>{`${user.firstName} ${user.lastName}`}</div>
-                        <h6>Software Engineer @ LockedIn</h6>
+                        <h6>{user.bio}</h6>
                         
                     </div>
               </div>
@@ -104,7 +105,7 @@ const NavBar = () => {
               <div className='bottom-dropdown-modal'>
                 
                 <div>
-                  <h1>Manage Account</h1>
+                  <h1>count</h1>
                   <button onClick={() => handleLogout()}>Sign Out</button>
                 </div>
                 

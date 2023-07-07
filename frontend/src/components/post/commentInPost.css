@@ -1,0 +1,97 @@
+.comment-container {
+    display: flex;
+    flex-direction: row;
+    /* border: 1px solid black; */
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.comment-profile-image {
+    max-width: 40px;
+    max-height: 40px;
+    /* border: 1px solid black; */
+    border-radius: 100%;
+}
+.comment-credentials-and-body-container {
+    /* border: 1px solid black; */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 13px;
+    width: 90%;
+    margin-left: 5px;
+    padding-left: 10px;
+    background-color: #efefef;
+    border-radius: 0 8px 8px 8px ;
+}
+.comment-credentials-first-line {
+    /* border: 1px solid black; */
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+}
+
+.comment-credentials-first-line h4 {
+    /* border: 1px solid black; */
+    padding-right: 10px;
+    margin-top: -15px;
+}
+.comment-author-name {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.comment-options-dropdown {
+    position: absolute;
+    margin-top: 95px;
+    right: 23px;
+    z-index: 2;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+}
+
+.no-edit {
+    margin-top: 50px; /* Adjust the margin value as needed */
+  }
+
+.comment-options-dropdown>* {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 15px;
+    text-align: left;
+    background-color: white;
+    /* border: 1px solid black; */
+
+}
+
+.comment-options-dropdown>*:hover {
+    background-color: #ccc;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.comment-author-bio {
+    font-size: 12px;
+    color: grey;
+}
+
+.edit-comment-text-area {
+    font-size: 14px;
+    margin-top: 20px;
+    min-width: 320px;
+    max-width: 320px;
+    background-color: transparent !important;
+    border: none;
+    outline: none;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.comment-body {
+    font-size: 14px;
+    margin-top: 20px;  /*  Change to margin if space changes if bio */
+}

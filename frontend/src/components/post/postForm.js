@@ -75,8 +75,10 @@ const PostForm = () => {
   return (
     <>
       <div className='start-a-post'>
-        <img className='start-a-post-icon' src={linkedinicon}></img>
-        <div className='start-a-post-modal-opener' onClick={() => handOpen()}>Start a Post</div>
+        <div className='start-a-post-icon-container'>
+          <img className='start-a-post-icon' src={user.profilePictureUrl}></img>
+          <div className='start-a-post-modal-opener' onClick={() => handOpen()}>Start a Post</div>
+        </div>
       </div>
       <hr />
 
@@ -115,17 +117,17 @@ const PostForm = () => {
             />
           </div>
 
-          <hr/>
+          <hr />
 
           <div className='modal-submit-footer'>
-          <button
-            className={`modal-submit ${inputValue ? 'active' : 'inactive'}`}
-            onClick={() => {
-              if (inputValue) handleCreatePost();
-            }}
-          >
-            Post
-          </button>
+            <button
+              className={`modal-submit ${inputValue ? 'active' : 'inactive'}`}
+              onClick={() => {
+                if (inputValue) handleCreatePost();
+              }}
+            >
+              Post
+            </button>
           </div>
         </div>
       </Modal>

@@ -10,16 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_08_074114) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_27_180657) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "likes", force: :cascade do |t|
-    t.integer "liker", null: false
-    t.integer "post", null: false
+  create_table "comments", force: :cascade do |t|
+    t.integer "author_id", null: false
+    t.text "body", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["liker"], name: "index_likes_on_liker", unique: true
+    t.integer "post_id", null: false
+  end
+
+  create_table "experiences", force: :cascade do |t|
+    t.string "title"
+    t.string "company_name"
+    t.string "employment_type"
+    t.string "location"
+    t.date "start_date"
+    t.date "end_date"
+    t.text "description"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_experiences_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "liker_id"
+    t.integer "post_id"
+    t.index ["liker_id", "post_id"], name: "index_likes_on_liker_id_and_post_id", unique: true
   end
 
   create_table "posts", force: :cascade do |t|
@@ -46,7 +68,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_074114) do
     t.index ["session_token"], name: "index_users_on_session_token", unique: true
   end
 
-  add_foreign_key "likes", "posts", column: "post"
-  add_foreign_key "likes", "users", column: "liker"
+  add_foreign_key "comments", "users", column: "author_id"
+  add_foreign_key "experiences", "users"
+  add_foreign_key "likes", "posts"
+  add_foreign_key "likes", "users", column: "liker_id"
   add_foreign_key "posts", "users", column: "author_id"
 end

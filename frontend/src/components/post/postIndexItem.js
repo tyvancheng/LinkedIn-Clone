@@ -98,11 +98,22 @@ export default function PostIndexItem({ post }) {
             </div>
         );
     }
+
+    function renderComments() {
+        debugger
+        if (!post.comments) return null;
+
+        const length = Object.keys(post.comments).length;
+        const commentText = length === 1 ? "comment" : "comments";
+
+        return <div id="comment-num-in-pii" onClick={handleOpenCommentLog}>{length} {commentText}</div>;
+    }
+
     if (post.length === 0) return null;
 
     return (
         <li className="post-in-feed" key={post.id}>
-
+            {/* TOP HEADER OF POST */}
             <div className='header-in-post'>
                 <div className='header-in-post-left'>
                     <div className='profile-picture-container'>
@@ -136,9 +147,13 @@ export default function PostIndexItem({ post }) {
 
             </div>
 
-
+            {/* BODY OF POST */}
             <div className='post-body'>{post.body}</div>
-            {post.likes && renderLikes(post.likes)}
+
+            <div className='post-likes-and-comments-container'>
+                {post.likes ? renderLikes(post.likes) : <div></div>}
+                {post.comments ? renderComments() : <div></div>}
+            </div>
 
             <hr />
             <div className='post-button-container'>

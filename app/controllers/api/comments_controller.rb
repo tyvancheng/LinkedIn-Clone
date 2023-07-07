@@ -1,7 +1,7 @@
 class Api::CommentsController < ApplicationController
     before_action :require_logged_in
     before_action :find_comment, only: [:show, :update, :destroy]
-    before_action :find_post, only: [:create, :destroy, :index]
+    before_action :find_post
     before_action :authorize_deletion, only: [:destroy]
     before_action :authorize_update, only: [:update]
   
@@ -19,7 +19,9 @@ class Api::CommentsController < ApplicationController
     end
   
     def update
+      
       if @comment.update(comment_params)
+        
         render json: @comment
       else
         render json: @comment.errors, status: :unprocessable_entity
@@ -27,8 +29,8 @@ class Api::CommentsController < ApplicationController
     end
   
     def destroy
-      debugger
       @comment.destroy
+      render json: @comment
     end
   
     private
@@ -46,13 +48,13 @@ class Api::CommentsController < ApplicationController
     end
     
     def authorize_update
-      unless current_user == @comment.user
+      unless current_user == @comment.author
         render json: { error: 'Unauthorized' }, status: :unauthorized
       end
     end
 
     def authorize_deletion
-      unless current_user == @comment.author || current_user == @comment.post.user
+      unless current_user == @comment.author || current_user == @post.author
         render json: { error: 'Unauthorized' }, status: :unauthorized
       end
     end

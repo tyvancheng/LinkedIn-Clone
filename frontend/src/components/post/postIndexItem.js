@@ -18,6 +18,11 @@ import CommentInPost from './commentInPost';
 
 
 export default function PostIndexItem({ post }) {
+    if (post.author.first_name === undefined) {
+        post.author.firstName = post.author.first_name
+        console.log(post.author.bio)
+        debugger
+    }
     const dispatch = useDispatch();
     const history = useHistory();
 

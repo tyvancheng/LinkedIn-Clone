@@ -31,6 +31,10 @@ debugger
     history.push("/");
   }
 
+  const handleProfilePage = () => {
+    history.push(`/profile/${user.id}`);
+  }
+
   return (
     <>
       <div className='nav-bar'>
@@ -105,7 +109,7 @@ debugger
               <div className='bottom-dropdown-modal'>
                 
                 <div>
-                  <h1>count</h1>
+                  <h1 onClick={handleProfilePage}>View Profile</h1>
                   <button onClick={() => handleLogout()}>Sign Out</button>
                 </div>
                 

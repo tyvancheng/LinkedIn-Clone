@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min"
 import { showUser } from "../../store/session"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
+import maleIcon from '../../images/icons8-male-user-50.png';
 import './profile.css'
 
 export const Profile = () => {
@@ -33,7 +34,7 @@ export const Profile = () => {
                         <div className="profile-main-page-header">
                             <img id="banner" src={banner}></img>
                             <div className="profile-main-page-picture-container">
-                                {user && <img className="profile-main-page-picture" src={user.profilePictureUrl}></img>}              
+                                {user && <img className="profile-main-page-picture" src={user.profilePictureUrl} alt="image"></img>}              
                             </div>
                             {user && <div className="profile-main-page-name">{`${user.firstName} ${user.lastName}`}</div>}
                             {user && <div className="profile-main-page-bio">{user.bio}</div>}

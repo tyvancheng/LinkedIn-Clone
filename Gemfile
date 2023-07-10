@@ -53,3 +53,7 @@ group :development do
   gem "annotate"
 end
 
+group :production do 
+  gem "faker"
+  gem "avatar"
+end

@@ -19,7 +19,7 @@ const NavBar = () => {
   const [showModal, setShowModal] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
-debugger
+  debugger
   if (!user) return null;
 
   const toggleModal = () => {
@@ -35,6 +35,11 @@ debugger
     history.push(`/profile/${user.id}`);
   }
 
+  const handleLinks = (e,url) => {
+    e.preventDefault();
+    // window.location.href = url; // Opens in same window
+    window.open(url)               // Opens in different tab
+  }
   return (
     <>
       <div className='nav-bar'>
@@ -66,19 +71,17 @@ debugger
             </li>
 
 
-            <li className='nav-bar-right-list-element'>
+            <li className='nav-bar-right-list-element' onClick={(e) => handleLinks(e,"https://www.linkedin.com/in/tyvan-cheng-7431748b/")}>
               <a href="https://www.linkedin.com/in/tyvan-cheng-7431748b/">
                 <img className="connect-logo" src={linkedinIcon} alt="linkedin-logo" />
               </a>
-              Github
-
+              Linkedin
             </li>
-            <li className='nav-bar-right-list-element'>
+            <li className='nav-bar-right-list-element' onClick={(e) => handleLinks(e,"https://github.com/tyvancheng")}>
               <a href="https://github.com/tyvancheng">
                 <img className="connect-logo" src={githubIcon} alt="github-logo"></img>
               </a>
-
-              Linkedin
+              Github
             </li>
             <li className='nav-bar-right-list-element' onClick={toggleModal}>
               <img className="connect-logo" src={maleIcon} alt="male-logo"></img>
@@ -93,26 +96,26 @@ debugger
             overlayClassName="me-dropdown-modal-overlay"
           >
             <div className="dropdown-modal-content">
-              
+
               <div className='header-in-post-left'>
-                  <div>
-                    <img src={user.profilePictureUrl} alt='profileicon' />
-                    </div>
-                    <div className='header-in-modal-credentials'>
-                
-                            <div>{`${user.firstName} ${user.lastName}`}</div>
-                        <h6>{user.bio}</h6>
-                        
-                    </div>
+                <div>
+                  <img src={user.profilePictureUrl} alt='profileicon' />
+                </div>
+                <div className='header-in-modal-credentials'>
+
+                  <div>{`${user.firstName} ${user.lastName}`}</div>
+                  <h6>{user.bio}</h6>
+
+                </div>
               </div>
-             
+
               <div className='bottom-dropdown-modal'>
-                
+
                 <div>
                   <h1 onClick={handleProfilePage}>View Profile</h1>
                   <button onClick={() => handleLogout()}>Sign Out</button>
                 </div>
-                
+
                 <button className="modal-close" onClick={toggleModal}>
                   Close
                 </button>

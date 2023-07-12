@@ -9,17 +9,15 @@ export const PostEdit = ({ post }) => {
     // update UI state 
     // dispatch updatePost
     // grab data from fetch and feed to Form
-    // console.log(showDropdown)
+
     const dispatch = useDispatch();
     const [inputValue, setInputValue] = useState(post.body);
     const [errors, setErrors] = useState([]);
     const user = useSelector((state) => state.session.user);
     const showModal = useSelector((state) => state.ui.modal);
-debugger
     const handleCloseModal = () => {
         
         if (inputValue !== post.body) {
-            debugger
             return (
             <>
                 <h1>Discard changes?</h1>
@@ -27,8 +25,7 @@ debugger
                 <button>Go back</button>
             </>
             )
-        } else {
-            debugger
+        } else {   
             dispatch(force_modal_close());
             
         }

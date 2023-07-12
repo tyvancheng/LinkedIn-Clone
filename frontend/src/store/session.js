@@ -27,8 +27,7 @@
                 body: JSON.stringify(user)
             });
             if (res.ok) {
-                let data = await res.json();
-                console.log(data);
+                let data = await res.json();                
                 if (data.errors) throw data
 
                 storeCurrentUser(data.user);
@@ -76,9 +75,7 @@
 
             if (res.ok) {
                 let data = await res.json();
-                if (data.errors) throw data;
-                console.log("data:", data)
-                debugger
+                if (data.errors) throw data;                
                 dispatch(showUserPage(data.user))
             } else {
                 throw res

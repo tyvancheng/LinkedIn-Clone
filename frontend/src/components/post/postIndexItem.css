@@ -42,6 +42,10 @@
     /* border: 1px solid black; */
 }
 
+.profile-picture-container:hover {
+    cursor:pointer;
+}
+
 .header-in-post-right {
     /* border: 1px solid black; */
     display: flex;
@@ -68,6 +72,9 @@
 
 }
 
+.header-in-post-credentials div:hover {
+    cursor: pointer;
+}
 .header-in-post-credentials h6 {
     font-weight: 400;
     font-size: 12px;

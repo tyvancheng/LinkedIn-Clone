@@ -2,6 +2,7 @@ import { updatePost } from "../../store/posts";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { open_post_update_modal, force_modal_close } from "../../store/ui";
+import closeIcon from '../../images/close-icon.png';
 import Modal from 'react-modal';
 import profilepic from '../../images/icons8-male-user-50.png'
 
@@ -15,6 +16,7 @@ export const PostEdit = ({ post }) => {
     const [errors, setErrors] = useState([]);
     const user = useSelector((state) => state.session.user);
     const showModal = useSelector((state) => state.ui.modal);
+    debugger
     const handleCloseModal = () => {
         
         if (inputValue !== post.body) {
@@ -25,7 +27,8 @@ export const PostEdit = ({ post }) => {
                 <button>Go back</button>
             </>
             )
-        } else {   
+        } else {
+            debugger
             dispatch(force_modal_close());
             
         }
@@ -88,7 +91,7 @@ export const PostEdit = ({ post }) => {
                     </div>
                     <div className='create-post-modal-close'
                         onClick={handleCloseModal}>
-                        <h6>&#x2715;</h6>
+                        <img src={closeIcon}></img>
                     </div>
                 </div>
 

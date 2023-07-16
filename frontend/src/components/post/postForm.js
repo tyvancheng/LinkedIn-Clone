@@ -7,6 +7,8 @@ import Modal from 'react-modal';
 import profilepic from '../../images/icons8-male-user-50.png'
 import { open_post_create_modal } from '../../store/ui';
 import { force_modal_close } from '../../store/ui';
+import closeIcon from '../../images/close-icon.png';
+
 import './postIndex.css'
 
 const PostForm = () => {
@@ -105,7 +107,7 @@ const PostForm = () => {
             </div>
             <div className='create-post-modal-close'
               onClick={handleCloseModal}>
-              <h6>&#x2715;</h6>
+              <img src={closeIcon}></img>
             </div>
           </div>
 

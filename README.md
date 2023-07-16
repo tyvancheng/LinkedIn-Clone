@@ -2,14 +2,14 @@
 
 [LockedIn](https://lockedin-0ii7.onrender.com)
 
-This is a LinkedIn clone web application built with React and Ruby on Rails. It provides similar functionality to LinkedIn, including user authentication, post creation, and user profiles.
+This is a LinkedIn clone web application built with React and Ruby on Rails. It provides similar functionality to LinkedIn, including user authentication, post creation, likes, comments and user profiles.
 
 # Features
 
 User authentication: Users can sign up, log in, and log out. Passwords are securely hashed and stored in the database.
 Error Handling: Upon sign up or log in, proper error handling notifies users of invalid credentials or params.
 User profiles: Each user has a profile with their name, profile picture, bio, and other relevant information.
-Posts: Users can create, edit, and delete posts. Posts can include text, images, and other media.
+Posts: Users can create, edit, and delete posts. Users can comment and like/unlike a post.
 News feed: The home page displays a news feed with the latest posts from all users.
 # Technologies Used
 
@@ -27,6 +27,6 @@ Create new posts by clicking on the "Create Post" modal.
 Edit and delete posts by clicking through the post's dropdown menu.
 
 # Future Implementation
-Likes and comments: Users can like and comment on posts.
 Search: Users can search for other users by name, job title, or other criteria.
+WebSocket: Users can live chat with one another.
 View and edit your profile by clicking on your profile picture or name.

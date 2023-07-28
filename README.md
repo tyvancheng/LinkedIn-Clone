@@ -1,6 +1,6 @@
 # README 
 
-[LockedIn](https://lockedin-0ii7.onrender.com)
+[LockedIn](https://lockedin-0ii7.onrender.com) (Website may take up to 1 minute to load. Thank you for your patience!)
 
 This is a LinkedIn clone web application built with React and Ruby on Rails. It provides similar functionality to LinkedIn, including user authentication, post creation, likes, comments and user profiles.
 

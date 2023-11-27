@@ -42,6 +42,30 @@ class User < ApplicationRecord
 
     has_many :authored_comments, foreign_key: :author_id, class_name: :Comment, dependent: :destroy
     has_many :experiences
+
+    has_many :connections_as_connectee, -> {where(status: 'connected')},
+        foreign_key: :connectee_id, 
+        class_name: :Connection,
+        dependent: :destroy  
+    has_many :connections_as_connector, -> {where(status: 'connected')},
+        foreign_key: :connector_id, 
+        class_name: :Connection,
+        dependent: :destroy
+    
+    has_many :connected_users, 
+        through: :connections_as_connector, 
+        source: :connectee
+    has_many :connecting_users, 
+        through: :connections_as_connectee, 
+        source: :connector
+
+
+    has_many :connection_requests, 
+        ->(user) { where(status: 'pending', connectee_id: user.id) },
+        primary_key: :id,
+        foreign_key: :connectee_id,
+        class_name: :Connection,
+        dependent: :destroy
     
     def ensure_session_token
         self.session_token ||= generate_unique_session_token

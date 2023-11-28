@@ -10,10 +10,10 @@
     min-height: 100px;
     border-radius: 8px;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    /* min-width: 300px; */
+    max-width: 500px;
 }
 
-.header-in-post > img {
+.header-in-post>img {
     min-width: 58px;
     height: auto;
     /* border: 1px solid black; */
@@ -42,6 +42,10 @@
     /* border: 1px solid black; */
 }
 
+.profile-picture-container:hover {
+    cursor:pointer;
+}
+
 .header-in-post-right {
     /* border: 1px solid black; */
     display: flex;
@@ -68,6 +72,9 @@
 
 }
 
+.header-in-post-credentials div:hover {
+    cursor: pointer;
+}
 .header-in-post-credentials h6 {
     font-weight: 400;
     font-size: 12px;
@@ -89,6 +96,9 @@
 }
 
 .post-body {
+    /* border: 1px solid black; */
+    word-wrap: break-word;
+    white-space: pre-line;
     padding: 10px;
 }
 
@@ -104,9 +114,10 @@
 }
 
 #comment-num-in-pii:hover {
-cursor: pointer;
-color: #0a66c2;
+    cursor: pointer;
+    color: #0a66c2;
 }
+
 .post-options-dropdown {
     position: absolute;
     top: 24px;
@@ -183,7 +194,7 @@ color: #0a66c2;
 }
 
 .like-count-image {
-        /* border: 1px solid black; */
+    /* border: 1px solid black; */
 
     margin-left: 10px;
     max-width: 15px;
@@ -229,8 +240,8 @@ hr {
 }
 
 .post-button-container .active-unlike-button {
-   color: #0a66c2;
-   background-color: #dcdcdc;
+    color: #0a66c2;
+    background-color: #dcdcdc;
 
 }
 
@@ -281,6 +292,7 @@ hr {
     background-color: #0a66c2;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
 .comments-container {
     margin-top: 20px;
 }

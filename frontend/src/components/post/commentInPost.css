@@ -12,6 +12,11 @@
     /* border: 1px solid black; */
     border-radius: 100%;
 }
+
+.comment-profile-image:hover {
+    cursor: pointer;
+}
+
 .comment-credentials-and-body-container {
     /* border: 1px solid black; */
     padding-top: 10px;
@@ -38,6 +43,10 @@
 .comment-author-name {
     font-size: 14px;
     font-weight: 700;
+}
+
+.comment-author-name:hover {
+    cursor: pointer;
 }
 
 .comment-options-dropdown {

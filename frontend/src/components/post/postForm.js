@@ -1,15 +1,19 @@
 import { createPost } from '../../store/posts';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import {useHistory} from 'react-router-dom';
 import linkedinicon from '../../images/linkedinicon.png'
 import Modal from 'react-modal';
 import profilepic from '../../images/icons8-male-user-50.png'
 import { open_post_create_modal } from '../../store/ui';
 import { force_modal_close } from '../../store/ui';
+import closeIcon from '../../images/close-icon.png';
+
 import './postIndex.css'
 
 const PostForm = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [inputValue, setInputValue] = useState('');
   // const [showModal, setShowModal] = useState(false);
   const [errors, setErrors] = useState([]);
@@ -32,6 +36,9 @@ const PostForm = () => {
     if (val.length <= 3000) setInputValue(event.target.value);
   }
 
+  const handleProfilePage = () => {
+    history.push(`/profile/${user.id}`);
+}
 
   const handleCreatePost = async () => {
 
@@ -76,7 +83,7 @@ const PostForm = () => {
     <>
       <div className='start-a-post'>
         <div className='start-a-post-icon-container'>
-          <img className='start-a-post-icon' src={user.profilePictureUrl}></img>
+          <img className='start-a-post-icon' src={user.profilePictureUrl} onClick={handleProfilePage}></img>
           <div className='start-a-post-modal-opener' onClick={() => handOpen()}>Start a Post</div>
         </div>
       </div>
@@ -100,7 +107,7 @@ const PostForm = () => {
             </div>
             <div className='create-post-modal-close'
               onClick={handleCloseModal}>
-              <h6>&#x2715;</h6>
+              <img src={closeIcon}></img>
             </div>
           </div>
 

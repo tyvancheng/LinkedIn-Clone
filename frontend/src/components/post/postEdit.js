@@ -2,6 +2,7 @@ import { updatePost } from "../../store/posts";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { open_post_update_modal, force_modal_close } from "../../store/ui";
+import closeIcon from '../../images/close-icon.png';
 import Modal from 'react-modal';
 import profilepic from '../../images/icons8-male-user-50.png'
 
@@ -9,17 +10,16 @@ export const PostEdit = ({ post }) => {
     // update UI state 
     // dispatch updatePost
     // grab data from fetch and feed to Form
-    // console.log(showDropdown)
+
     const dispatch = useDispatch();
     const [inputValue, setInputValue] = useState(post.body);
     const [errors, setErrors] = useState([]);
     const user = useSelector((state) => state.session.user);
     const showModal = useSelector((state) => state.ui.modal);
-debugger
+    debugger
     const handleCloseModal = () => {
         
         if (inputValue !== post.body) {
-            debugger
             return (
             <>
                 <h1>Discard changes?</h1>
@@ -91,7 +91,7 @@ debugger
                     </div>
                     <div className='create-post-modal-close'
                         onClick={handleCloseModal}>
-                        <h6>&#x2715;</h6>
+                        <img src={closeIcon}></img>
                     </div>
                 </div>
 

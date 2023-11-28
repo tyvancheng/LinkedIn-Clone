@@ -116,7 +116,6 @@ export const unlikePost = (postId, likeId) => async dispatch => {
 };
 
 export const addComment = (postId, body) => async dispatch => {
-  debugger
   const res = await csrfFetch(`/api/posts/${postId}/comments`, {
     method: 'POST',
     headers: {
@@ -147,8 +146,6 @@ export const editComment = (postId, commentId, body) => async dispatch => {
     body: JSON.stringify({ body })
   })
   const data = await res.json()
-  console.log("edit:", data)
-  debugger
   dispatch(updateComment(postId, data))
 }
 export default function postsReducer(prev = {}, action) {

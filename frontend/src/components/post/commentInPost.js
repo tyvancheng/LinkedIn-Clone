@@ -2,8 +2,10 @@ import './commentInPost.css'
 import { useSelector, useDispatch } from 'react-redux';
 import React,{ useState, useEffect, useRef } from 'react';
 import { deleteComment, editComment } from '../../store/posts';
+import { useHistory } from 'react-router-dom';
 
 export default function CommentInPost({ comment, post }) {
+    const history = useHistory()
     const dispatch = useDispatch();
     const user = useSelector((state) => state.session.user)
 
@@ -13,7 +15,7 @@ export default function CommentInPost({ comment, post }) {
     const [content, setContent] = useState(comment.body);
 
     const dropdownRef = useRef(null);
-debugger
+
     const validUser = () => {
         return (comment.author.id === user.id) || (post.author.id === user.id)
     }
@@ -24,13 +26,11 @@ debugger
 
     const handleDelete = () => {
         setModalOpen(!modalOpen)
-        debugger
         dispatch(deleteComment(post.id, comment.id))
     }
 
     const handleEdit = () => {
         if (content === comment.body) return
-        debugger
         dispatch(editComment(post.id, comment.id, content))
         .then(() => {
             setTemp(false);
@@ -44,6 +44,10 @@ debugger
     const handleTemp = () => {
         setModalOpen(false)
         setTemp(!temp)
+    }
+
+    const handleProfilePage = () => {
+        history.push(`/profile/${comment.author.id}`);
     }
 
     useEffect(() => {
@@ -66,10 +70,10 @@ debugger
             <div className='comment-container'>
 
                 {/* COMMENT HEADER */}
-                <img src={comment.author.profile_picture_url} className='comment-profile-image'></img>
+                <img src={comment.author.profile_picture_url} className='comment-profile-image' onClick={handleProfilePage}></img>
                 <div className='comment-credentials-and-body-container'>
                     <div className='comment-credentials-first-line'>
-                        <div className='comment-author-name'>{`${comment.author.first_name} ${comment.author.last_name}`}</div>
+                        <div className='comment-author-name' onClick={handleProfilePage}>{`${comment.author.first_name} ${comment.author.last_name}`}</div>
                         {(validUser() && (!modalOpen && !temp)) && <h4 onClick={handleClick}>&hellip;</h4>}
                         {modalOpen &&
                             <>

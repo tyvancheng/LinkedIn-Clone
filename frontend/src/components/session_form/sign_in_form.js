@@ -17,15 +17,12 @@ const SignInForm = (page = null) => {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        try {
-            console.log(email, password);
+        try {            
             const response = await dispatch(loginUser({ email, password }));
             if (response.ok) {
                 history.push(`/feed`);
             } else {
-                const errorData = await response.json();
-                console.log(errorData)
-                console.log(response)
+                const errorData = await response.json();                                
                 if (errorData?.errors) {
                     setErrors((prevErrors) => ({ ...prevErrors, invalidCreds: errorData.errors }));
                 } else if (errorData) {
@@ -43,8 +40,7 @@ const SignInForm = (page = null) => {
     const loginDemoUser = (e) => {
 
         e.preventDefault();
-        try {
-            console.log(email, password);
+        try {            
             dispatch(loginUser({ email: "lockedindemo@gmail.com", password: "demouser" }))
             .then(() => history.push(`/feed`));
         } catch (err) {

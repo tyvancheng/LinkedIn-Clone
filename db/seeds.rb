@@ -17,20 +17,20 @@ ApplicationRecord.connection.reset_pk_sequence!('posts')
 # check other other programs for the seed rest stuff 
    
 # author_ids = [1, 2, 3]
-bodies = [
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "Sed euismod augue ac eros interdum condimentum.",
-    "Proin efficitur tellus nec sapien dictum, vitae sollicitudin lacus ultrices.",
-    "Praesent non nulla eget magna gravida aliquam vitae nec tortor.",
-    "Vestibulum eget tellus ullamcorper, tincidunt velit sed, ultricies tortor."
-  ]
-#  bodies = [
-#     "I'm positive robots are wired for success.",
-#     "Robots on vacation? They just need some time to recharge.",
-#     "Did you hear about the robot who had a cold? It had a byte infection!",
-#     "A robot started a gardening business because it had a green thumb drive.",
-#     "The robot fell in love with a calculator because they could always count on each other."
-#   ];
+# bodies = [
+#     "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+#     "Sed euismod augue ac eros interdum condimentum.",
+#     "Proin efficitur tellus nec sapien dictum, vitae sollicitudin lacus ultrices.",
+#     "Praesent non nulla eget magna gravida aliquam vitae nec tortor.",
+#     "Vestibulum eget tellus ullamcorper, tincidunt velit sed, ultricies tortor."
+#   ]
+ bodies = [
+    "I'm positive robots are wired for success.",
+    "Robots on vacation? They just need some time to recharge.",
+    "Did you hear about the robot who had a cold? It had a byte infection!",
+    "A robot started a gardening business because it had a green thumb drive.",
+    "The robot fell in love with a calculator because they could always count on each other."
+  ];
   
   
   
@@ -47,7 +47,7 @@ demouser = User.create!(first_name: "Demo", last_name: "User", email: "lockedind
   profile_picture_url: Faker::Avatar.image(size: "50x50",bgset: 'bg2') , bio: "Robotics Engineer @ Lockheed Martin")
 
 post1 = Post.create!(author_id: user1.id, body: bodies[1])
-post2 = Post.create!(author_id: user2.id, body: bodies[1])
-post3 = Post.create!(author_id: demouser.id, body: bodies[1])
-post4 = Post.create!(author_id: user1.id, body: bodies[1])
-post5 = Post.create!(author_id: user2.id, body: bodies[1])
+post2 = Post.create!(author_id: user2.id, body: bodies[2])
+post3 = Post.create!(author_id: demouser.id, body: bodies[3])
+post4 = Post.create!(author_id: user1.id, body: bodies[4])
+post5 = Post.create!(author_id: user2.id, body: bodies[0])

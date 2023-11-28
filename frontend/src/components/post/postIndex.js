@@ -13,7 +13,7 @@ export default function PostIndex() {
   const posts = useSelector(getPosts);
   const [reversed, setReversed] = useState(false);
   const user = useSelector((state) => state.session.user);
-debugger
+
   useEffect(() => {
     dispatch(fetchPosts());
   }, [dispatch]);
